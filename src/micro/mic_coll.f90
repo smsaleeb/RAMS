@@ -624,14 +624,8 @@ if (jnmb(5) .ge. 1) then
           wt1=abs( (tagg-temps(etmp)) / (temps(etmp)-temps(etmp+1)) )
           wt2=1.0-wt1
           eff(k,4) = wt2*efftemp(etmp) + wt1*efftemp(etmp+1)
-!print*,'pp',k,tagg,tx(k,3),etmp,wt2,temps(etmp),wt1,temps(etmp+1),eff(k,4)
         endif
       enddo
-!      if (abs(tx(k,3)+14.) .le. 2.) then
-!         eff(k,4) = 1.4
-!      else
-!         eff(k,4) = min(0.2,10. ** (0.035 * tx(k,3) - 0.7))
-!      endif
    enddo
 
 ! 5 = ss,sa
@@ -647,14 +641,8 @@ if (jnmb(5) .ge. 1) then
           wt1=abs( (tagg-temps(etmp)) / (temps(etmp)-temps(etmp+1)) )
           wt2=1.0-wt1
           eff(k,5) = wt2*efftemp(etmp) + wt1*efftemp(etmp+1)
-!print*,'ss',k,tagg,tx(k,4),etmp,wt2,temps(etmp),wt1,temps(etmp+1),eff(k,5)
         endif
       enddo
-!      if (abs(tx(k,4)+14.) .le. 2.) then
-!         eff(k,5) = 1.4
-!      else
-!         eff(k,5) = min(0.2,10. ** (0.035 * tx(k,4) - 0.7))
-!      endif
    enddo
 
 ! 6 = aa
@@ -671,16 +659,8 @@ if (jnmb(5) .ge. 1) then
           wt1=abs( (tagg-temps(etmp)) / (temps(etmp)-temps(etmp+1)) )
           wt2=1.0-wt1
           eff(k,6) = wt2*efftemp(etmp) + wt1*efftemp(etmp+1)
-!print*,'aa',k,tagg,tx(k,5),etmp,wt2,temps(etmp),wt1,temps(etmp+1),eff(k,6)
         endif
       enddo
-!      if (abs(tx(k,5)+14.) .le. 2.) then
-!         eff(k,6) = 1.4
-!      elseif (tx(k,5) .ge. -1.) then
-!         eff(k,6) = 1.
-!      else
-!         eff(k,6) = min(0.2,10. ** (0.035 * tx(k,5) - 0.7))
-!      endif
     endif
    enddo
 endif
@@ -702,12 +682,9 @@ if (jnmb(6) .ge. 1) then
              wt1=abs( (tagg-temps(etmp)) / (temps(etmp)-temps(etmp+1)) )
              wt2=1.0-wt1
              eff(k,7) = wt2*efftemp(etmp) + wt1*efftemp(etmp+1)
-!print*,'pg',k,tagg,tx(k,6),etmp,wt2,temps(etmp),wt1,temps(etmp+1),eff(k,7)
            endif
          enddo
-!         eff(k,7) = min(0.2,10. ** (0.035 * tx(k,6) - 0.7))
       endif
-!print*,'pg',k,tx(k,6),eff(k,7)
    enddo
 endif
 
@@ -729,13 +706,10 @@ if (jnmb(7) .ge. 1) then
              wt1=abs( (tagg-temps(etmp)) / (temps(etmp)-temps(etmp+1)) )
              wt2=1.0-wt1
              eff(k,8) = wt2*efftemp(etmp) + wt1*efftemp(etmp+1)
-!print*,'ph',k,tagg,tx(k,7),etmp,wt2,temps(etmp),wt1,temps(etmp+1),eff(k,8)
            endif
          enddo
-!         eff(k,8) = min(0.2,10. ** (0.035 * tx(k,7) - 0.7))
       endif
     endif
-!print*,'ph',k,tx(k,7),eff(k,8)
    enddo
 endif
 
