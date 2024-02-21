@@ -29,10 +29,10 @@ implicit none
   !Saleeby(2016)
   !Increment memory buffer size here if you add RAMSIN Namelist variables.
   !Add to the appropriate section below as (#-of-them * arraysize).
-  nwords = 219 * 1                 & !single values
+  nwords = 218 * 1                 & !single values
          +   1 * 8                 & !micro (8-hydromet types for gnu)
          +   3 * aerocat           & !micro (number aerosol species)
-         +  44 * maxgrds           & !grid-dependent (max grids)
+         +  45 * maxgrds           & !grid-dependent (max grids)
          +   3 * nzpmax            & !max vertical levels
          +   3 * nzgmax            & !max soil levels
          +   1 * maxisn            & !max isentropic levels
@@ -154,7 +154,7 @@ implicit none
     CALL par_put_char  (AFILEPREF,strl1)
     CALL par_put_float (FRQSTATE,MAXGRDS)
     CALL par_put_float (FRQST_KEEP,1)
-    CALL par_put_float (FRQLITE,1)
+    CALL par_put_float (FRQLITE,MAXGRDS)
     CALL par_put_float (NLITE_VARS,1)
     do nm = 1, nlite_vars
        print*,'lite pack:',nm,trim(LITE_VARS(nm))
@@ -489,7 +489,7 @@ implicit none
     CALL par_get_char  (AFILEPREF,strl1)
     CALL par_get_float (FRQSTATE,MAXGRDS)
     CALL par_get_float (FRQST_KEEP,1)
-    CALL par_get_float (FRQLITE,1)
+    CALL par_get_float (FRQLITE,MAXGRDS)
     CALL par_get_float (NLITE_VARS,1)
     do nm = 1, nlite_vars
        CALL par_get_char (LITE_VARS(nm),32)

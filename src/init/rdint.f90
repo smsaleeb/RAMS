@@ -318,7 +318,7 @@ CALL gridloc_prt ()
 !                  Save initial fields on history and analysis files
 !                  -------------------------------------------------
 CALL anal_write ('INST')
-if(frqlite > 0.) CALL anal_write ('LITE')
+CALL anal_write ('LITE')
 
 !                  Save initial fields into the averaged arrays
 !                  -------------------------------------------------
