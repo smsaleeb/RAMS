@@ -10,6 +10,7 @@ Subroutine opspec1 ()
 !   run to stop immediately and warning errors and informative
 !   messages will be listed.
 
+use io_params
 use mem_grid
 use mem_radiate
 use mem_leaf
@@ -66,6 +67,14 @@ IF(NGRIDS.LT.1) THEN
 ENDIF
 
 DO IFM=1,NGRIDS
+
+  IF(FRQLITE(IFM) > 0.0)then
+    IF(mod(FRQSTATE(IFM),FRQLITE(IFM)) /= 0.)then
+      PRINT*,' FATAL - Lite file freq must be int multiple of State file Freq'
+      IFATERR=IFATERR+1
+    ENDIF
+  ENDIF
+
   icm = nxtnest(ifm)
   IF(NNXP(IFM).LT.4) THEN
     PRINT*,' FATAL - NNXP must be at least 4.'
