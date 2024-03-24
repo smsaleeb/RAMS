@@ -131,7 +131,7 @@ real :: cxrad,cyrad,czrad,cdivmax,ctau,ctmax
 
 !******Variables Needed for CCN nucleation and restore *********************
 integer :: iccnlev,ic,rgb
-real :: cin_max,ccn1_max,ccn2_max,dust1_max,dust2_max,saltf_max,saltj_max &
+real :: cin_max,ccn1_max,ccn2_max,ccn3_max,dust1_max,dust2_max,saltf_max,saltj_max &
  ,salts_max,enxferratio,rxferratio,ccnmass,ccnnum,rxtemp,cxtemp,fracmass &
  ,cxloss,concen_nuc,aeromass,rg,rhosol,cldrat,epsil,ant,rcm,rmlar,rmsma &
  ,power,scnmass,dcnmass,dinmass,abc1_max,abc2_max
@@ -168,15 +168,16 @@ data rg_ccn / 0.01e-6,0.02e-6,0.04e-6,0.08e-6 &
 !Ammonium sulfate (NH4-2SO4) or Sodium chloride (NaCl)
 ! 1 = CCN mode 1
 ! 2 = CCN mode 2
-! 3 = Small mode mineral dust (soluble coating)
-! 4 = Large mode mineral dust (soluble coating)
-! 5 = Film mode sea salt
-! 6 = Jet mode sea salt
-! 7 = Spume mode sea salt
-! 8 = Sub-micron radius regenerated mixed aerosols
-! 9 = Super-micron radius regenerated mixed aerosols
+! 3 = CCN mode 3
+! 4 = Small mode mineral dust (soluble coating)
+! 5 = Large mode mineral dust (soluble coating)
+! 6 = Film mode sea salt
+! 7 = Jet mode sea salt
+! 8 = Spume mode sea salt
+! 9 = Sub-micron radius regenerated mixed aerosols
+! 10= Super-micron radius regenerated mixed aerosols
 integer :: acat
-integer, parameter :: aerocat=11
+integer, parameter :: aerocat=12
 real, dimension(nzpmax) :: cifnx
 real, dimension(nzpmax,2) :: regenmas
 real, dimension(nzpmax,aerocat) :: totifnn,totifnm,aerocon,aeromas
@@ -199,6 +200,7 @@ real, parameter :: mincon=1.0e-1         &
 !specifically set for sigma=1.8. These would need to be updated as well.
 data aero_sigma  / 1.80 &       !CCN mode 1 
                   ,1.80 &       !CCN mode 2
+                  ,1.80 &       !CCN mode 3
                   ,1.80 &       !small mineral dust
                   ,1.80 &       !large mineral dust
                   ,1.80 &       !salt film mode 
@@ -213,6 +215,7 @@ data aero_sigma  / 1.80 &       !CCN mode 1
 !exp(1.5 * (alog(sigma))**2)
 data aero_rg2rm  / 1.6791 &     !CCN mode 1
                   ,1.6791 &     !CCN mode 2
+                  ,1.6791 &     !CCN mode 3
                   ,1.6791 &     !small mineral dust
                   ,1.6791 &     !large mineral dust
                   ,1.6791 &     !salt film mode 

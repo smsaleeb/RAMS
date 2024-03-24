@@ -363,6 +363,10 @@ do j = 1,m3
      print*,"Too many CCN2:",micro%cn2np(k,i,j)
      toomany=1
    endif
+   if(micro%cn3np(k,i,j) > maxaero) then
+     print*,"Too many CCN3:",micro%cn3np(k,i,j)
+     toomany=1
+   endif
   endif
   if(idust>0) then
    if(micro%md1np(k,i,j) > maxaero) then
@@ -426,6 +430,10 @@ do j = 1,m3
    if(micro%cn2np(k,i,j)<mincon .or. micro%cn2mp(k,i,j)<minmas) then
       micro%cn2np(k,i,j) = 0.0
       micro%cn2mp(k,i,j) = 0.0
+   endif
+   if(micro%cn3np(k,i,j)<mincon .or. micro%cn3mp(k,i,j)<minmas) then
+      micro%cn3np(k,i,j) = 0.0
+      micro%cn3mp(k,i,j) = 0.0
    endif
   endif
   if(idust>0) then

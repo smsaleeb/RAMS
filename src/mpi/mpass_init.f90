@@ -29,7 +29,7 @@ implicit none
   !Saleeby(2016)
   !Increment memory buffer size here if you add RAMSIN Namelist variables.
   !Add to the appropriate section below as (#-of-them * arraysize).
-  nwords = 218 * 1                 & !single values
+  nwords = 219 * 1                 & !single values
          +   1 * 8                 & !micro (8-hydromet types for gnu)
          +   3 * aerocat           & !micro (number aerosol species)
          +  45 * maxgrds           & !grid-dependent (max grids)
@@ -317,6 +317,7 @@ implicit none
     CALL par_put_float (CIN_MAX,1)
     CALL par_put_float (CCN1_MAX,1)
     CALL par_put_float (CCN2_MAX,1)
+    CALL par_put_float (CCN3_MAX,1)
     CALL par_put_float (DUST1_MAX,1)
     CALL par_put_float (DUST2_MAX,1)
     CALL par_put_float (SALTF_MAX,1)
@@ -651,6 +652,7 @@ implicit none
     CALL par_get_float (CIN_MAX,1)
     CALL par_get_float (CCN1_MAX,1)
     CALL par_get_float (CCN2_MAX,1)
+    CALL par_get_float (CCN3_MAX,1)
     CALL par_get_float (DUST1_MAX,1)
     CALL par_get_float (DUST2_MAX,1)
     CALL par_get_float (SALTF_MAX,1)

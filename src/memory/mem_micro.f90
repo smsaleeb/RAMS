@@ -14,7 +14,7 @@ implicit none
                          !Bin precip vars
                          ,pcpvic,pcpvip,pcpvid                      &
                          !Aerosol categories mass and number
-                         ,cn1np,cn2np,cn1mp,cn2mp                   &
+                         ,cn1np,cn2np,cn3np,cn1mp,cn2mp,cn3mp       &
                          ,md1np,md2np,md1mp,md2mp                   &
                          ,salt_film_np,salt_jet_np,salt_spum_np     &
                          ,salt_film_mp,salt_jet_mp,salt_spum_mp     &
@@ -136,6 +136,8 @@ implicit none
             allocate (micro%cn1mp(n1,n2,n3))
             allocate (micro%cn2np(n1,n2,n3))
             allocate (micro%cn2mp(n1,n2,n3))
+            allocate (micro%cn3np(n1,n2,n3))
+            allocate (micro%cn3mp(n1,n2,n3))
          endif
          if(idust > 0) then
             allocate (micro%md1np(n1,n2,n3))
@@ -511,8 +513,10 @@ implicit none
 
    if (allocated(micro%cn1np))   deallocate (micro%cn1np)
    if (allocated(micro%cn2np))   deallocate (micro%cn2np)
+   if (allocated(micro%cn3np))   deallocate (micro%cn3np)
    if (allocated(micro%cn1mp))   deallocate (micro%cn1mp)
    if (allocated(micro%cn2mp))   deallocate (micro%cn2mp)
+   if (allocated(micro%cn3mp))   deallocate (micro%cn3mp)
    if (allocated(micro%md1np))   deallocate (micro%md1np)
    if (allocated(micro%md2np))   deallocate (micro%md2np)
    if (allocated(micro%md1mp))   deallocate (micro%md1mp)
@@ -804,6 +808,10 @@ implicit none
       CALL vtables2 (micro%cn2np(1,1,1),microm%cn2np(1,1,1)  &
                  ,ng, npts, imean,  &
                  'CN2NP :3:anal:mpti:mpt1')
+  if (allocated(micro%cn3np)) &
+      CALL vtables2 (micro%cn3np(1,1,1),microm%cn3np(1,1,1)  &
+                 ,ng, npts, imean,  &
+                 'CN3NP :3:anal:mpti:mpt1')
    if (allocated(micro%cn1mp)) &
       CALL vtables2 (micro%cn1mp(1,1,1),microm%cn1mp(1,1,1)  &
                  ,ng, npts, imean,  &
@@ -812,6 +820,10 @@ implicit none
       CALL vtables2 (micro%cn2mp(1,1,1),microm%cn2mp(1,1,1)  &
                  ,ng, npts, imean,  &
                  'CN2MP :3:anal:mpti:mpt1')
+   if (allocated(micro%cn3mp)) &
+      CALL vtables2 (micro%cn3mp(1,1,1),microm%cn3mp(1,1,1)  &
+                 ,ng, npts, imean,  &
+                 'CN3MP :3:anal:mpti:mpt1')
    if (allocated(micro%md1np)) &
       CALL vtables2 (micro%md1np(1,1,1),microm%md1np(1,1,1)  &
                  ,ng, npts, imean,  &

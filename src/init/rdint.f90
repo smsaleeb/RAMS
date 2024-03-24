@@ -167,6 +167,10 @@ if(trim(runtype) == 'INITIAL' .or. &
           ,micro_g(ifm)%cn2np (1,1,1)  &
           ,micro_g(ifm)%cn2mp (1,1,1)  &
           ,basic_g(ifm)%dn0   (1,1,1),ifm)
+       if(iaerosol > 0) CALL init_ccn3 (mzp,mxp,myp   &
+          ,micro_g(ifm)%cn3np (1,1,1)  &
+          ,micro_g(ifm)%cn3mp (1,1,1)  &
+          ,basic_g(ifm)%dn0   (1,1,1),ifm)
        if(idust  > 0)  CALL init_dust (mzp,mxp,myp   &
           ,micro_g(ifm)%md1np (1,1,1)  &
           ,micro_g(ifm)%md2np (1,1,1)  &

@@ -25,7 +25,7 @@ character(len=*) :: group,vr,cc
 real :: ff
 integer :: ii,nv
 integer :: inrflg
-integer, parameter ::nvgrid=37,nvstrt=77,nvindat=147,nvsound=10
+integer, parameter ::nvgrid=37,nvstrt=77,nvindat=148,nvsound=10
 integer ::  igrids(nvgrid),istart(nvstrt),iindat(nvindat),isound(nvsound)
 character(len=16) :: grids(nvgrid),start(nvstrt),indat(nvindat),sound(nvsound)
 data igrids/nvgrid*0/,istart/nvstrt*0/,iindat/nvindat*0/,isound/nvsound*0/
@@ -73,7 +73,7 @@ DATA INDAT/  &
      ,'GPARM','HPARM','GNU','HUCMFILE','NDTCOLL','IAEROSOL','ISALT'      &
      ,'IDUST','IDUSTLOFT','DUSTFILE','ICCNLEV','IIFN','IIFN_FORMULA'     &
      ,'IAERORAD','IAERODEP','IAEROPRNT','IAEROHIST','CIN_MAX','CCN1_MAX' &
-     ,'CCN2_MAX','DUST1_MAX','DUST2_MAX','SALTF_MAX','SALTJ_MAX'         &
+     ,'CCN2_MAX','CCN3_MAX','DUST1_MAX','DUST2_MAX','SALTF_MAX','SALTJ_MAX'&
      ,'SALTS_MAX','IAEROLBC','ICO2LBC','BCTAU','IAERO_CHEM'              &
      ,'AERO_EPSILON','AERO_MEDRAD','ITRKEPSILON','ITRKDUST'              &
      ,'ITRKDUSTIFN','SCMTIME','ISCMX','ISCMY','FRACSAT','IABCARB'        &
@@ -364,8 +364,9 @@ IF(GROUP.EQ.'$MODEL_OPTIONS') THEN
  IF(VR.EQ.'IAEROPRNT')    CALL varseti (VR,IAEROPRNT,NV,1,II,0,1)
  IF(VR.EQ.'IAEROHIST')    CALL varseti (VR,IAEROHIST,NV,1,II,0,1)
  IF(VR.EQ.'CIN_MAX')      CALL varsetf (VR,CIN_MAX,NV,1,FF,-2.,1.E3)
- IF(VR.EQ.'CCN1_MAX')     CALL varsetf (VR,CCN1_MAX,NV,1,FF,0.,1.E4)
- IF(VR.EQ.'CCN2_MAX')     CALL varsetf (VR,CCN2_MAX,NV,1,FF,0.,1.E4)
+ IF(VR.EQ.'CCN1_MAX')     CALL varsetf (VR,CCN1_MAX,NV,1,FF,0.,2.E4)
+ IF(VR.EQ.'CCN2_MAX')     CALL varsetf (VR,CCN2_MAX,NV,1,FF,0.,2.E4)
+ IF(VR.EQ.'CCN3_MAX')     CALL varsetf (VR,CCN3_MAX,NV,1,FF,0.,2.E4)
  IF(VR.EQ.'DUST1_MAX')    CALL varsetf (VR,DUST1_MAX,NV,1,FF,0.,1.E4)
  IF(VR.EQ.'DUST2_MAX')    CALL varsetf (VR,DUST2_MAX,NV,1,FF,0.,1.E4)
  IF(VR.EQ.'ABC1_MAX')     CALL varsetf (VR,ABC1_MAX,NV,1,FF,0.,1.E4)
@@ -609,6 +610,7 @@ WRITE(6,'(100(3(A15,E11.4)/))')      &
  ,'CIN_MAX=',CIN_MAX                 &
  ,'CCN1_MAX=',CCN1_MAX               &
  ,'CCN2_MAX=',CCN2_MAX               &
+ ,'CCN3_MAX=',CCN3_MAX               &
  ,'DUST1_MAX=',DUST1_MAX             &
  ,'DUST2_MAX=',DUST2_MAX             &
  ,'ABC1_MAX=',ABC1_MAX               &

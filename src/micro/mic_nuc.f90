@@ -75,15 +75,16 @@ elseif (jnmb(1) >= 5) then
       concen_tab(acat) = 0.0
       concen_nuc = 0.0
 
-      if((acat==1)                  .or. &  ! CCN-1
-         (acat==2)                  .or. &  ! CCN-2
-         (acat==3 .and. idust>0)    .or. &  ! Small dust mode
-         (acat==4 .and. idust>0)    .or. &  ! Large dust mode
-         (acat==5 .and. isalt>0)    .or. &  ! Salt film mode
-         (acat==6 .and. isalt>0)    .or. &  ! Salt jet mode
-         (acat==7 .and. isalt>0)    .or. &  ! Salt spume mode
-         (acat==8 .and. iabcarb>0)  .or. &  ! Absorbing carbon 1 mode
-         (acat==9 .and. iabcarb>0)  .or. &  ! Absorbing carbon 2 mode
+      if((acat==1 .and. iaerosol>0) .or. &  ! CCN-1
+         (acat==2 .and. iaerosol>0) .or. &  ! CCN-2
+         (acat==3 .and. iaerosol>0) .or. &  ! CCN-3
+         (acat==4 .and. idust>0)    .or. &  ! Small dust mode
+         (acat==5 .and. idust>0)    .or. &  ! Large dust mode
+         (acat==6 .and. isalt>0)    .or. &  ! Salt film mode
+         (acat==7 .and. isalt>0)    .or. &  ! Salt jet mode
+         (acat==8 .and. isalt>0)    .or. &  ! Salt spume mode
+         (acat==9 .and. iabcarb>0)  .or. &  ! Absorbing carbon 1 mode
+         (acat==10.and. iabcarb>0)  .or. &  ! Absorbing carbon 2 mode
          (acat==aerocat-1 .and. iccnlev>=2) .or. &  ! Small regenerated aerosol
          (acat==aerocat   .and. iccnlev>=2)) then   ! Large regenerated aerosol
 
@@ -199,15 +200,16 @@ elseif (jnmb(1) >= 5) then
    do acat=1,aerocat
     aero_ratio(acat) = 0.0  ! Aerosol fraction
     aero_vap(acat)   = 0.0  ! Total surface area of aerosol category
-    if((acat==1)                  .or. &  ! CCN-1
-       (acat==2)                  .or. &  ! CCN-2
-       (acat==3 .and. idust>0)    .or. &  ! Small dust mode
-       (acat==4 .and. idust>0)    .or. &  ! Large dust mode
-       (acat==5 .and. isalt>0)    .or. &  ! Salt film mode
-       (acat==6 .and. isalt>0)    .or. &  ! Salt jet mode
-       (acat==7 .and. isalt>0)    .or. &  ! Salt spume mode
-       (acat==8 .and. iabcarb>0)  .or. &  ! Absorbing carbon 1 mode
-       (acat==9 .and. iabcarb>0)  .or. &  ! Absorbing carbon 2 mode
+    if((acat==1 .and. iaerosol>0) .or. &  ! CCN-1
+       (acat==2 .and. iaerosol>0) .or. &  ! CCN-2
+       (acat==3 .and. iaerosol>0) .or. &  ! CCN-3
+       (acat==4 .and. idust>0)    .or. &  ! Small dust mode
+       (acat==5 .and. idust>0)    .or. &  ! Large dust mode
+       (acat==6 .and. isalt>0)    .or. &  ! Salt film mode
+       (acat==7 .and. isalt>0)    .or. &  ! Salt jet mode
+       (acat==8 .and. isalt>0)    .or. &  ! Salt spume mode
+       (acat==9 .and. iabcarb>0)  .or. &  ! Absorbing carbon 1 mode
+       (acat==10.and. iabcarb>0)  .or. &  ! Absorbing carbon 2 mode
        (acat==aerocat-1 .and. iccnlev>=2) .or. &  ! Small regenerated aerosol
        (acat==aerocat   .and. iccnlev>=2)) then   ! Large regenerated aerosol
        if(aerocon(k,acat) > mincon) then
@@ -229,15 +231,16 @@ elseif (jnmb(1) >= 5) then
    total_drz_nucr=0.0
    do acat=1,aerocat
      ctc = 0
-     if((acat==1)                  .or. &  ! CCN-1
-        (acat==2)                  .or. &  ! CCN-2
-        (acat==3 .and. idust>0)    .or. &  ! Small dust mode
-        (acat==4 .and. idust>0)    .or. &  ! Large dust mode
-        (acat==5 .and. isalt>0)    .or. &  ! Salt film mode
-        (acat==6 .and. isalt>0)    .or. &  ! Salt jet mode
-        (acat==7 .and. isalt>0)    .or. &  ! Salt spume mode
-        (acat==8 .and. iabcarb>0)  .or. &  ! Absorbing carbon 1 mode
-        (acat==9 .and. iabcarb>0)  .or. &  ! Absorbing carbon 2 mode
+     if((acat==1 .and. iaerosol>0) .or. &  ! CCN-1
+        (acat==2 .and. iaerosol>0) .or. &  ! CCN-2
+        (acat==3 .and. iaerosol>0) .or. &  ! CCN-3
+        (acat==4 .and. idust>0)    .or. &  ! Small dust mode
+        (acat==5 .and. idust>0)    .or. &  ! Large dust mode
+        (acat==6 .and. isalt>0)    .or. &  ! Salt film mode
+        (acat==7 .and. isalt>0)    .or. &  ! Salt jet mode
+        (acat==8 .and. isalt>0)    .or. &  ! Salt spume mode
+        (acat==9 .and. iabcarb>0)  .or. &  ! Absorbing carbon 1 mode
+        (acat==10.and. iabcarb>0)  .or. &  ! Absorbing carbon 2 mode
         (acat==aerocat-1 .and. iccnlev>=2) .or. &  ! Small regenerated aerosol
         (acat==aerocat   .and. iccnlev>=2)) then   ! Large regenerated aerosol
       !Assign aerosol specs to local arrays
@@ -385,16 +388,16 @@ elseif (jnmb(1) >= 5) then
             ccncon(ic) = ccncon(ic) + ccncon(ic-1)
             ccnmas(ic) = ccnmas(ic) + ccnmas(ic-1)
            endif
-           !Track immersion freezing droplets that contain large CCN1, CCN2, or DUST
-           ! Do not track immersion freezing for salt species (acat=5,6,7)
-           if(iifn==3.and.(acat==1.or.acat==2.or.acat==3.or.acat==4.or.acat==8.or.acat==9 &
-               .or.acat==aerocat-1.or.acat==aerocat) &
+           !Track immersion freezing droplets that contain large CCN1, CCN2, CCN3 or DUST
+           ! Do not track immersion freezing for salt species (acat=6,7,8)
+           if(iifn==3.and.(acat==1.or.acat==2.or.acat==3.or.acat==4.or.acat==5 &
+               .or.acat==9.or.acat==10 .or. acat==aerocat-1.or.acat==aerocat) &
                .and. rcm > 0.25e-6 .and. ic>1) num_ccn_ifn=ccncon(ic-1)
            !Track the amount of aerosol mass contained within new droplets 
            if(ccncon(ic)>=concen_tab(acat) .or. ccnmas(ic)>=aeromass .or. ic==itbin-1) then
              !Further immersion freezing tracking for (acat=1,2,3,4,8,9)
-             if(iifn==3.and.(acat==1.or.acat==2.or.acat==3.or.acat==4.or.acat==8.or.acat==9 &
-               .or.acat==aerocat-1.or.acat==aerocat) &
+             if(iifn==3.and.(acat==1.or.acat==2.or.acat==3.or.acat==4.or.acat==5 &
+               .or.acat==9.or.acat==10 .or. acat==aerocat-1.or.acat==aerocat) &
                .and. rcm > 0.25e-6 .and. ic>1) num_ccn_ifn=concen_tab(acat)
              ccnmass=ccnmas(ic-1)
              go to 111
@@ -740,7 +743,7 @@ do k = 2,m1-1
       ! to reality. For 2-moment cloud droplet prediction I scale the
       ! haze nuclei to the CCN concentration. Need better option here.
       ! Need haznuc in #/kg
-      if(jnmb(1)>=5) haznuc = frachaz * aerocon(k,1)
+      if(jnmb(1)>=5) haznuc = frachaz * aerocon(k,1) !min(300.e6,aerocon(k,1))
       if(jnmb(1)< 5) haznuc = frachaz * 300.e6
    endif
 
