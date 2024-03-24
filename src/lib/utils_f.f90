@@ -143,19 +143,19 @@ elseif(trim(varn)=='AGGREGATET')then
 a = anint(a*t_mbud1)/t_mbud1
 !WP & Temperature process rates
 elseif(trim(varn)=='LATHEATVAPT')then
-a = anint(a*1e4)/1e5
+a = anint(a*1e5)/1e5
 elseif(trim(varn)=='LATHEATFRZT')then
-a = anint(a*1e4)/1e5
+a = anint(a*1e5)/1e5
 elseif(trim(varn)=='LATHEATVAP')then
-a = anint(a*1e4)/1e5
+a = anint(a*1e5)/1e5
 elseif(trim(varn)=='LATHEATFRZ')then
-a = anint(a*1e4)/1e5
+a = anint(a*1e5)/1e5
 elseif(trim(varn)=='WP_BUOY_THETA')then
-a = anint(a*1e3)/1e4
+a = anint(a*1e4)/1e4
 elseif(trim(varn)=='WP_BUOY_COND')then
-a = anint(a*1e3)/1e4
+a = anint(a*1e4)/1e4
 elseif(trim(varn)=='WP_ADVDIF')then
-a = anint(a*1e3)/1e4
+a = anint(a*1e4)/1e4
 !Level-2 mass process rates
 elseif(trim(varn)=='INUCHOMRT')then
 a = anint(a*t_mbud2)/t_mbud2
