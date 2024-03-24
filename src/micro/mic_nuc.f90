@@ -305,13 +305,13 @@ elseif (jnmb(1) >= 5) then
             xnuccldrt(k) = xnuccldrt(k) + vaprccn * budget_scalet
           endif
           !Dust Budget diagnostics
-          if(acat==3 .and. drop==1 .and. imbudget==3 .and. idust >= 1) &
-             xdust1cldrt(k) = xdust1cldrt(k) + vaprccn * budget_scalet
-          if(acat==3 .and. drop==8 .and. imbudget==3 .and. idust >= 1) &
-             xdust1drzrt(k) = xdust1drzrt(k) + vaprccn * budget_scalet
           if(acat==4 .and. drop==1 .and. imbudget==3 .and. idust >= 1) &
-             xdust2cldrt(k) = xdust2cldrt(k) + vaprccn * budget_scalet
+             xdust1cldrt(k) = xdust1cldrt(k) + vaprccn * budget_scalet
           if(acat==4 .and. drop==8 .and. imbudget==3 .and. idust >= 1) &
+             xdust1drzrt(k) = xdust1drzrt(k) + vaprccn * budget_scalet
+          if(acat==5 .and. drop==1 .and. imbudget==3 .and. idust >= 1) &
+             xdust2cldrt(k) = xdust2cldrt(k) + vaprccn * budget_scalet
+          if(acat==5 .and. drop==8 .and. imbudget==3 .and. idust >= 1) &
              xdust2drzrt(k) = xdust2drzrt(k) + vaprccn * budget_scalet
 
           !Convert units for setting up lognormal distribution
