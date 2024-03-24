@@ -14,9 +14,9 @@ do acat=1,aerocat
   !Set default values to override if aerosol type exists
   aero_rg(acat) = aero_medrad(acat) ! Default median radius 
       
-  if((acat==1 .and. iaerosol>0) .or. &  ! CCN-1
-     (acat==2 .and. iaerosol>0) .or. &  ! CCN-2
-     (acat==3 .and. iaerosol>0) .or. &  ! CCN-3
+  if((acat==1 .and. iaerosol>=1) .or. &  ! CCN-1
+     (acat==2 .and. iaerosol>=2) .or. &  ! CCN-2
+     (acat==3 .and. iaerosol>=3) .or. &  ! CCN-3
      (acat==4 .and. idust>0)    .or. &  ! Small dust mode
      (acat==5 .and. idust>0)    .or. &  ! Large dust mode
      (acat==6 .and. isalt>0)    .or. &  ! Salt film mode
@@ -85,9 +85,9 @@ real, dimension(m1) :: dn0,rv
    totifnn(k,acat) = 0.0
    totifnm(k,acat) = 0.0
 
-   if((acat==1 .and. iaerosol>0) .or. &  ! CCN-1
-      (acat==2 .and. iaerosol>0) .or. &  ! CCN-2
-      (acat==3 .and. iaerosol>0) .or. &  ! CCN-3
+   if((acat==1 .and. iaerosol>=1) .or. &  ! CCN-1
+      (acat==2 .and. iaerosol>=2) .or. &  ! CCN-2
+      (acat==3 .and. iaerosol>=3) .or. &  ! CCN-3
       (acat==4 .and. idust>0)    .or. &  ! Small dust mode
       (acat==5 .and. idust>0)    .or. &  ! Large dust mode
       (acat==9 .and. iabcarb>0)  .or. &  ! Absorbing carbon 1 mode
@@ -257,9 +257,9 @@ real, dimension(m1) :: dn0,rv
    totifnn(k,acat) = totifnn(k,acat) * ifnfrac
    totifnm(k,acat) = totifnm(k,acat) * ifnfrac
    if(iccnlev>=1 .and. ifnfrac>0.0) then
-    if((acat==1 .and. iaerosol>0) .or. &  ! CCN-1
-       (acat==2 .and. iaerosol>0) .or. &  ! CCN-2
-       (acat==3 .and. iaerosol>0) .or. &  ! CCN-3
+    if((acat==1 .and. iaerosol>=1) .or. &  ! CCN-1
+       (acat==2 .and. iaerosol>=2) .or. &  ! CCN-2
+       (acat==3 .and. iaerosol>=3) .or. &  ! CCN-3
        (acat==4 .and. idust>0)    .or. &  ! Small dust mode
        (acat==5 .and. idust>0)    .or. &  ! Large dust mode
        (acat==9 .and. iabcarb>0)  .or. &  ! Absorbing carbon 1 mode
@@ -289,9 +289,9 @@ real, dimension(m1) :: dn0,rv
          if(acat==aerocat-1.or.acat==aerocat) &
           regenmas(k,acat-(aerocat-2)) = regenmas(k,acat-(aerocat-2)) - totifnm(k,acat) * epsil         
        endif
-       if(itrkdust==1 .and. (acat==3 .or. acat==4)) &
+       if(itrkdust==1 .and. (acat==4 .or. acat==5)) &
          dnmhx(k,3) = dnmhx(k,3) + totifnm(k,acat)
-       if(itrkdustifn==1 .and. (acat==3 .or. acat==4)) &
+       if(itrkdustifn==1 .and. (acat==4 .or. acat==5)) &
          dinhx(k,3) = dinhx(k,3) + totifnm(k,acat)
       endif
 

@@ -131,11 +131,15 @@ implicit none
 
 ! Allocate arrays based on options (if necessary)
       if (level >= 0 .and. level .ne. 4) then
-         if(iaerosol > 0) then
+         if(iaerosol >= 1) then
             allocate (micro%cn1np(n1,n2,n3))
             allocate (micro%cn1mp(n1,n2,n3))
+         endif
+         if(iaerosol >= 2) then
             allocate (micro%cn2np(n1,n2,n3))
             allocate (micro%cn2mp(n1,n2,n3))
+         endif
+         if(iaerosol >= 3) then
             allocate (micro%cn3np(n1,n2,n3))
             allocate (micro%cn3mp(n1,n2,n3))
          endif

@@ -220,8 +220,8 @@ endif
 !********************************************************************
 ! CHECK FOR AEROSOL SOURCE AND AEROSOL RADIATION FLAGS
 !********************************************************************
- if (iaerosol .lt. 0 .or. iaerosol .gt. 1) THEN
-    print*,'FATAL - IAEROSOL OUT OF RANGE: MUST BE 0-1'
+ if (iaerosol .lt. 0 .or. iaerosol .gt. 3) THEN
+    print*,'FATAL - IAEROSOL OUT OF RANGE: MUST BE 0-3'
     IFATERR = IFATERR + 1
  endif
  if (idust .lt. 0 .or. idust .gt. 2) THEN

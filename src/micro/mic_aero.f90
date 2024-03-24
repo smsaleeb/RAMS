@@ -186,11 +186,15 @@ if(aflag==1)then
  enddo
  !Fill scratch arrays for aerosol modes for level=1,2
  do k = 1,m1-1
-   if (iaerosol > 0) then
+   if (iaerosol >= 1) then
      aerocon(k,1) = cn1np(k)
      aeromas(k,1) = cn1mp(k)
+   endif
+   if (iaerosol >= 2) then
      aerocon(k,2) = cn2np(k)
      aeromas(k,2) = cn2mp(k)
+   endif
+   if (iaerosol >= 3) then
      aerocon(k,3) = cn3np(k)
      aeromas(k,3) = cn3mp(k)
    endif
@@ -219,11 +223,15 @@ if(aflag==1)then
 elseif(aflag==2)then
  !Copy back scratch arrays to aerosol modes for level=1,2
  do k = 1,m1-1
-   if (iaerosol > 0) then
+   if (iaerosol >= 1) then
     cn1np(k) = aerocon(k,1)
     cn1mp(k) = aeromas(k,1)
+   endif
+   if (iaerosol >= 2) then
     cn2np(k) = aerocon(k,2)
     cn2mp(k) = aeromas(k,2)
+   endif
+   if (iaerosol >= 3) then
     cn3np(k) = aerocon(k,3)
     cn3mp(k) = aeromas(k,3)
    endif

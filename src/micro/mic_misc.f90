@@ -159,11 +159,15 @@ do k = 2,m1-1
   if (jnmb(3)>=5 .and. (iifn==1.or.iifn==2)) then
     cifnx(k) = micro%cifnp(k,i,j)
   endif
-  if (iaerosol > 0) then
+  if (iaerosol >= 1) then
     aerocon(k,1)   = micro%cn1np(k,i,j)
     aeromas(k,1)   = micro%cn1mp(k,i,j)
+  endif
+  if (iaerosol >= 2) then
     aerocon(k,2)   = micro%cn2np(k,i,j)
     aeromas(k,2)   = micro%cn2mp(k,i,j)
+  endif
+  if (iaerosol >= 3) then
     aerocon(k,3)   = micro%cn3np(k,i,j)
     aeromas(k,3)   = micro%cn3mp(k,i,j)
   endif

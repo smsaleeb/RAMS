@@ -354,15 +354,19 @@ do j = 1,m3
      toomany=1
    endif
   endif
-  if(iaerosol>0)then
+  if(iaerosol>=1)then
    if(micro%cn1np(k,i,j) > maxaero) then
      print*,"Too many CCN1:",micro%cn1np(k,i,j)
      toomany=1  
    endif
+  endif
+  if(iaerosol>=2)then
    if(micro%cn2np(k,i,j) > maxaero) then
      print*,"Too many CCN2:",micro%cn2np(k,i,j)
      toomany=1
    endif
+  endif
+  if(iaerosol>=3)then
    if(micro%cn3np(k,i,j) > maxaero) then
      print*,"Too many CCN3:",micro%cn3np(k,i,j)
      toomany=1
@@ -422,15 +426,19 @@ do j = 1,m3
   endif
 
   !SET SMALL VALUES TO ZERO
-  if(iaerosol>0) then
+  if(iaerosol>=1) then
    if(micro%cn1np(k,i,j)<mincon .or. micro%cn1mp(k,i,j)<minmas) then
       micro%cn1np(k,i,j) = 0.0
       micro%cn1mp(k,i,j) = 0.0
    endif
+  endif
+  if(iaerosol>=2) then
    if(micro%cn2np(k,i,j)<mincon .or. micro%cn2mp(k,i,j)<minmas) then
       micro%cn2np(k,i,j) = 0.0
       micro%cn2mp(k,i,j) = 0.0
    endif
+  endif
+  if(iaerosol>=3) then
    if(micro%cn3np(k,i,j)<mincon .or. micro%cn3mp(k,i,j)<minmas) then
       micro%cn3np(k,i,j) = 0.0
       micro%cn3mp(k,i,j) = 0.0

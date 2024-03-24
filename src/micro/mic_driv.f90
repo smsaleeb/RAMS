@@ -602,11 +602,15 @@ endif
 !is not changed by microphysics when used.
 
 !Copyback AEROSOLS
-if (iaerosol > 0) then
+if (iaerosol >= 1) then
    CALL ae1kmic (2,m1-1,micro%cn1np(1,i,j),aerocon(1,1))
    CALL ae1kmic (2,m1-1,micro%cn1mp(1,i,j),aeromas(1,1))
+endif
+if (iaerosol >= 2) then
    CALL ae1kmic (2,m1-1,micro%cn2np(1,i,j),aerocon(1,2))
    CALL ae1kmic (2,m1-1,micro%cn2mp(1,i,j),aeromas(1,2))
+endif
+if (iaerosol >= 3) then
    CALL ae1kmic (2,m1-1,micro%cn3np(1,i,j),aerocon(1,3))
    CALL ae1kmic (2,m1-1,micro%cn3mp(1,i,j),aeromas(1,3))
 endif

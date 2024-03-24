@@ -54,9 +54,13 @@ do acat=1,aerocat
   aerotype(acat) = 0
 enddo
 
-if(iaerosol>0) then
+if(iaerosol>=1) then
    aerotype(1) = 1   ! CCN-mode-1
+endif
+if(iaerosol>=2) then
    aerotype(2) = 1   ! CCN-mode-2
+endif
+if(iaerosol>=3) then
    aerotype(3) = 1   ! CCN-mode-3
 endif
 if(idust>0) then

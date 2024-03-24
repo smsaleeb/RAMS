@@ -350,7 +350,7 @@ IF(GROUP.EQ.'$MODEL_OPTIONS') THEN
  IF(VR.EQ.'GNU')          CALL varsetf (VR,GNU(NV),NV,8,FF,0.,20.)
  IF(VR.EQ.'HUCMFILE')     CALL varsetc (VR,HUCMFILE,NV,1,CC,1,strl1)
  IF(VR.EQ.'NDTCOLL')      CALL varseti (VR,NDTCOLL,NV,1,II,1,10)
- IF(VR.EQ.'IAEROSOL')     CALL varseti (VR,IAEROSOL,NV,1,II,0,1)
+ IF(VR.EQ.'IAEROSOL')     CALL varseti (VR,IAEROSOL,NV,1,II,0,3)
  IF(VR.EQ.'IABCARB')      CALL varseti (VR,IABCARB,NV,1,II,0,1)
  IF(VR.EQ.'ISALT')        CALL varseti (VR,ISALT,NV,1,II,0,2)
  IF(VR.EQ.'IDUST')        CALL varseti (VR,IDUST,NV,1,II,0,2)
