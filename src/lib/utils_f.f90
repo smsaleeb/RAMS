@@ -78,13 +78,13 @@ a = anint(a*t_numc)/t_numc
 elseif(trim(varn)=='FTHRD')then
 a = anint(a*1e5)/1e5
 elseif(trim(varn)=='SWUP')then
-a = anint(a*1e2)/1e2
+a = anint(a*1e3)/1e3
 elseif(trim(varn)=='SWDN')then
-a = anint(a*1e2)/1e2
+a = anint(a*1e3)/1e3
 elseif(trim(varn)=='LWUP')then
-a = anint(a*1e2)/1e2
+a = anint(a*1e3)/1e3
 elseif(trim(varn)=='LWDN')then
-a = anint(a*1e2)/1e2
+a = anint(a*1e3)/1e3
 elseif(trim(varn)=='BEXT')then
 a = anint(a*1e4)/1e4
 !Aerosol number concentrations
