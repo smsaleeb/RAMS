@@ -10,11 +10,11 @@ real :: t_mbud1,t_mbud2,t_mixr,t_numc,t_aeroc
 
 !Common rounding thresholds for reducing precision and 
 !enabling better data compression in LITE files
-t_mbud1 = 1e8
-t_mbud2 = 1e9
-t_mixr  = 1e6
-t_numc  = 1e1
-t_aeroc = 1e1
+t_mbud1 = 1e8 ! kg/kg/timefreq
+t_mbud2 = 1e9 ! kg/kg/timefreq
+t_mixr  = 1e6 ! kg/kg
+t_numc  = 1e2 ! #/kg
+t_aeroc = 1e2 ! #/kg
 
 !Application of rounding based on native units of variables within
 !model runtime (e.g. m/s, kg/kg, #/kg, K, etc)
