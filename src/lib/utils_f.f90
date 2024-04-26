@@ -6,7 +6,7 @@ implicit none
 character(len=32) :: varn
 integer :: nzp,nxp,nyp
 real :: a(nxp,nyp,nzp)
-real :: t_mbud1,t_mbud2,t_mixr,t_numc,t_aeroc
+real :: t_mbud1,t_mbud2,t_mixr,t_numc,t_aeroc,t_pcpr
 
 !Common rounding thresholds for reducing precision and 
 !enabling better data compression in LITE files
@@ -15,12 +15,28 @@ t_mbud2 = 1e9 ! kg/kg/timefreq
 t_mixr  = 1e6 ! kg/kg
 t_numc  = 1e2 ! #/kg
 t_aeroc = 1e2 ! #/kg
+t_pcpr  = 1e7 ! mm/sec
 
 !Application of rounding based on native units of variables within
 !model runtime (e.g. m/s, kg/kg, #/kg, K, etc)
 
+!Precipitation rates in 3D
+if(    trim(varn)=='PCPVR')then
+a = anint(a*t_pcpr)/t_pcpr
+elseif(trim(varn)=='PCPVP')then
+a = anint(a*t_pcpr)/t_pcpr
+elseif(trim(varn)=='PCPVS')then
+a = anint(a*t_pcpr)/t_pcpr
+elseif(trim(varn)=='PCPVA')then
+a = anint(a*t_pcpr)/t_pcpr
+elseif(trim(varn)=='PCPVG')then
+a = anint(a*t_pcpr)/t_pcpr
+elseif(trim(varn)=='PCPVH')then
+a = anint(a*t_pcpr)/t_pcpr
+elseif(trim(varn)=='PCPVD')then
+a = anint(a*t_pcpr)/t_pcpr
 !Dynamic and general thermodynamic variables
-if(    trim(varn)=='THETA')then
+elseif(trim(varn)=='THETA')then
 a = anint(a*1e3)/1e3
 elseif(trim(varn)=='THP')then
 a = anint(a*1e3)/1e3

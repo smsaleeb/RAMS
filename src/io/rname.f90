@@ -693,9 +693,9 @@ write(6,1301)(gnu(k),k=1,8)
 
 PRINT*, ' '
 WRITE(6,*)'IAERO_CHEM    AERO_EPSILON    AERO_MEDRAD-(default)'
-WRITE(6,*)'(category)     (fraction)      (microns)'
-WRITE(6,1404)(iaero_chem(K),aero_epsilon(K),aero_medrad(K)*1.e6,K=1,aerocat)
-1404  FORMAT(I6,F17.3,F16.2)
+WRITE(6,*)'(category)     (fraction)      (nanometers)'
+WRITE(6,1404)(iaero_chem(K),aero_epsilon(K),aero_medrad(K)*1.e9,K=1,aerocat)
+1404  FORMAT(I6,F17.3,F16.1)
 
 PRINT*, ' '
 
