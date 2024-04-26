@@ -205,12 +205,12 @@ do j = 1,n3
     cifnp(k,i,j) = cifnp(k,i,j) * 1.e6 / dn0(k,i,j) ! convert #/cm3 to #/kg
     !Output initial sample profile
     if(iaeroprnt==1 .and. i==1 .and. j==1 .and. print_msg) then
-     if(k==1) print*,' Ice Nuclei - init (k,zt,inp/cm3,inp/mg,inp/L) on Grid:',ifm
+     if(k==1) print*,' SPICULE Ice Nuclei - init (k,zt,inp/cm3,inp/mg,inp/L) on Grid:',ifm
      print'(a9,i5,f11.1,3f12.3)',' IFN-init',k,zt(k) &
        ,cifnp(k,i,j)/1.e6*dn0(k,i,j),cifnp(k,i,j)/1.e6,cifnp(k,i,j)/1.e3*dn0(k,i,j)
     endif
    !*************************************************************************** 
-   !Use MC3E INP profile if cin_maxt ~ 2.0
+   !Use MC3E INP profile if cin_maxt ~ -2.0
    !Profile from aircraft obs during the MC3E field project. (Marinescu et al. 2016)
    !To mimic the MC3E profile in magnitude, need to set the following parameters.
    !and use IIFN=2 for DeMott scheme, and IFN_FORMULA=1 for DeMott(2010) general formula.
@@ -227,7 +227,7 @@ do j = 1,n3
     cifnp(k,i,j) = cifnp(k,i,j) * 1.e6 ! convert #/mg to #/kg
     !Output initial sample profile
     if(iaeroprnt==1 .and. i==1 .and. j==1 .and. print_msg) then
-     if(k==1) print*,' Ice Nuclei - init (k,zt,inp/cm3,inp/mg,inp/L) on Grid:',ifm
+     if(k==1) print*,' MC3E Ice Nuclei - init (k,zt,inp/cm3,inp/mg,inp/L) on Grid:',ifm
      print'(a9,i5,f11.1,3f12.3)',' IFN-init',k,zt(k) &
        ,cifnp(k,i,j)/1.e6*dn0(k,i,j),cifnp(k,i,j)/1.e6,cifnp(k,i,j)/1.e3*dn0(k,i,j)
     endif
@@ -273,9 +273,9 @@ do j = 1,n3
 
    !Output initial sample profile
    if(iaeroprnt==1 .and. i==1 .and. j==1 .and. print_msg) then
-     if(k==1) print*,' CCN-1-init (k,zt,ccn1/mg,ccn1/cc) on Grid:',ifm
-     print'(a11,i5,f11.1,2f17.7)',' CCN-1-init' &
-        ,k,zt(k),cn1np(k,i,j)/1.e6,cn1np(k,i,j)/1.e6*dn0(k,i,j)
+     if(k==1) print*,' CCN-1-init (k,zt,ccn1/mg,ccn1/cc,dn0) on Grid:',ifm
+     print'(a11,i5,f11.1,3f17.7)',' CCN-1-init' &
+        ,k,zt(k),cn1np(k,i,j)/1.e6,cn1np(k,i,j)/1.e6*dn0(k,i,j),dn0(k,i,j)
    endif
 
    !Set up Field of CCN-mode-1 mass mixing ratio (kg/kg)
@@ -321,9 +321,9 @@ do j = 1,n3
 
    !Output initial sample profile
    if(iaeroprnt==1 .and. i==1 .and. j==1 .and. print_msg) then
-     if(k==1) print*,' CCN-2-init (k,zt,ccn2/mg,ccn2/cc) on Grid:',ifm
-     print'(a11,i5,f11.1,2f17.7)',' CCN-2-init' &
-        ,k,zt(k),cn2np(k,i,j)/1.e6,cn2np(k,i,j)/1.e6*dn0(k,i,j)
+     if(k==1) print*,' CCN-2-init (k,zt,ccn2/mg,ccn2/cc,dn0) on Grid:',ifm
+     print'(a11,i5,f11.1,3f17.7)',' CCN-2-init' &
+        ,k,zt(k),cn2np(k,i,j)/1.e6,cn2np(k,i,j)/1.e6*dn0(k,i,j),dn0(k,i,j)
    endif
 
    !Set up Field of CCN-mode-2 mass mixing ratio (kg/kg)
@@ -369,9 +369,9 @@ do j = 1,n3
 
    !Output initial sample profile
    if(iaeroprnt==1 .and. i==1 .and. j==1 .and. print_msg) then
-     if(k==1) print*,' CCN-3-init (k,zt,ccn3/mg,ccn3/cc) on Grid:',ifm
-     print'(a11,i5,f11.1,2f17.7)',' CCN-3-init' &
-        ,k,zt(k),cn3np(k,i,j)/1.e6,cn3np(k,i,j)/1.e6*dn0(k,i,j)
+     if(k==1) print*,' CCN-3-init (k,zt,ccn3/mg,ccn3/cc,dn0) on Grid:',ifm
+     print'(a11,i5,f11.1,3f17.7)',' CCN-3-init' &
+        ,k,zt(k),cn3np(k,i,j)/1.e6,cn3np(k,i,j)/1.e6*dn0(k,i,j),dn0(k,i,j)
    endif
 
    !Set up Field of CCN-mode-3 mass mixing ratio (kg/kg)
