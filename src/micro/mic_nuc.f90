@@ -136,7 +136,7 @@ elseif (jnmb(1) >= 5) then
         wtw2 = rjw - float(jw)
         wtw1 = 1. - wtw2
         !********** AEROSOL NUMBER, MASS, & MEDIAN RADIUS CONSTRAINTS ********
-        rjconcen = max(1., min(7., 2. * log10(1.0e-7 * concen_nuc) + 1.))
+        rjconcen = max(1., min(8., 2. * log10(1.0e-7 * concen_nuc) + 1.))
         jconcen = int(rjconcen)
         wtcon2 = rjconcen - float(jconcen)
         wtcon1 = 1. - wtcon2
@@ -174,10 +174,10 @@ elseif (jnmb(1) >= 5) then
         !******************* DETERMINE LOOKUP TABLE VALUES *******************
         tab=0.0
         if(iaero_chem(acat)==1) then
-          CALL aero_nuc_tab_nh42so4 (rv(k),rvlsair(k),eps1,eps2,wtw1,wtw2,wtcon1 &
+          CALL aero_nuc_tab_nh42so4 (eps1,eps2,wtw1,wtw2,wtcon1 &
             ,wtcon2,jrg1,jrg2,epstab,jw,jconcen,jtemp,rgccn1,tab)
         elseif(iaero_chem(acat)==2) then
-          CALL aero_nuc_tab_nacl (rv(k),rvlsair(k),eps1,eps2,wtw1,wtw2,wtcon1 &
+          CALL aero_nuc_tab_nacl (eps1,eps2,wtw1,wtw2,wtcon1 &
             ,wtcon2,jrg1,jrg2,epstab,jw,jconcen,jtemp,rgccn1,tab)
         endif
         concen_tab(acat) = concen_nuc * tab * epstemp
