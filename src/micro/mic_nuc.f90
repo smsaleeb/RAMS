@@ -9,6 +9,7 @@ implicit none
 integer :: m1,i,j,k,k1cnuc,k2cnuc,k1dnuc,k2dnuc &
           ,jtemp,jw,jconcen,rgccn1,ctc,epsnum,epstab,drop
 real :: rnuc,excessrv,rcnew,vaprccn,num_ccn_ifn,epstemp
+real :: numbertotal,fracexcess
 real, dimension(m1) :: rv,wp,dn0
 real :: tairc_nuc,w_nuc,rg_nuc,tab,sfcareatotal
 real :: rjw,wtw1,wtw2,rjconcen,wtcon1,wtcon2,jrg1,jrg2,eps1,eps2
@@ -142,8 +143,10 @@ elseif (jnmb(1) >= 5) then
         wtcon1 = 1. - wtcon2
         !********** MEDIAN RADIUS DEPENDENCY FOR CCN *************************
         rg_nuc = rg
-        if (rg_nuc < 0.01e-6) then
-           rg_nuc = 0.011e-6
+        jrg1 = 0.0
+        jrg2 = 0.0
+        if (rg_nuc < 0.001e-6) then
+           rg_nuc = 0.001e-6
         elseif (rg_nuc > 0.96e-6) then
            rg_nuc = 0.959e-6
         endif
@@ -154,6 +157,10 @@ elseif (jnmb(1) >= 5) then
            jrg1 = 1. - jrg2
          endif
         enddo
+        if(jrg1 == 0.0 .and. jrg2 == 0.0)then
+         print*,'Not correctly predicting aerosol size for nucleation. Stop'
+         stop
+        endif
         !********** EPSILON SOLUBILITY FRACTION FOR CCN **********************
         !Determine weights for interpolating between epsilon table values
         epstemp = epsil
@@ -189,7 +196,7 @@ elseif (jnmb(1) >= 5) then
         !limit this activation. So, no activation if rg < 10nm. In this respect,
         !some aerosols may be carried around without nucleating. They can still
         !be radiatively important and undergo depositin.
-        if (rg < 0.01e-6) concen_tab(acat) = 0.0
+        if (rg < 0.001e-6) concen_tab(acat) = 0.0
 
        endif !if concen_nuc > mincon
       endif !if acat aerosol type is valid
@@ -197,6 +204,7 @@ elseif (jnmb(1) >= 5) then
 
 !****Compute total surface areas and particle percentage of total*************
    sfcareatotal=0.0
+   numbertotal=0.0
    do acat=1,aerocat
     aero_ratio(acat) = 0.0  ! Aerosol fraction
     aero_vap(acat)   = 0.0  ! Total surface area of aerosol category
@@ -215,6 +223,7 @@ elseif (jnmb(1) >= 5) then
        if(aerocon(k,acat) > mincon) then
         aero_vap(acat) = (4.0 * 3.14159 * aero_rg(acat)**2) * concen_tab(acat)
         sfcareatotal = sfcareatotal + aero_vap(acat)
+        numbertotal = numbertotal + concen_tab(acat)
        endif
     endif
    enddo
@@ -266,13 +275,22 @@ elseif (jnmb(1) >= 5) then
 
       if(ctc==1) then
 
-        !Vapor allocated to a given aerosol species
-        vaprccn = 0.5*excessrv*cldrat !Sum of all nucleation <= 1/2 excessrv
-        !Saleeby(2023-06-01): Replacing line above to try and limit new nucleation.
-        !Anecdotal evidence suggests that we nucleate too many aerosols, so we are
-        !seeing if this will switch more to growth of existing droplets over making
-        !more new ones.
-        !vaprccn = 0.25*excessrv*cldrat !Sum of all nucleation <= 1/4 excessrv
+        !Vapor allocated to a given aerosol species.
+        !Sum of all nucleation <= 1/2 excessrv by default (for ICCNLEV==0).
+        !Saleeby(2024-04-26): Replacing method above for ICCNLEV>=1 to try and limit
+        !new nucleation. We determine fraction to nucleate based on W(m/s) but also
+        !should consider how much SS we can use up compared to condensation of existing
+        !droplets. Below we limit the SS to be used based on the fraction of the number
+        !of potential aerosols to nucleate to the number of exisiting droplets.
+        !The historical maximum of SS to use is 50%, but we have reduced this to 10% to
+        !be in better agreement with the ICCNLEV==0 option while allowing aerosol 
+        !depletion by nucleation scavenging and wet/dry deposition.
+        if(iccnlev==0) then
+          vaprccn = 0.5*excessrv*cldrat
+        elseif(iccnlev>=1) then
+          fracexcess=min( 1.0, numbertotal / max( 1.0,(numbertotal+cx(k,1)) ) )
+          vaprccn = fracexcess * 0.1 * excessrv * cldrat
+        endif
 
         !Determine if nucleated droplets go to cloud or drizzle
         drop=1
