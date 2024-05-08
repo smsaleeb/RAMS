@@ -744,7 +744,7 @@ do k = 2,m1-1
       ! haze nuclei to the CCN-1-mode concentration, with max of 300.e6
       ! Could improve on this method...
       ! Need haznuc in #/kg
-      if(jnmb(1)>=5) haznuc = frachaz * aerocon(k,1) !min(300.e6,aerocon(k,1))
+      if(jnmb(1)>=5) haznuc = frachaz * min(300.e6,aerocon(k,1))
       if(jnmb(1)< 5) haznuc = frachaz * 300.e6
    endif
 
