@@ -213,6 +213,11 @@ if (iscm > 0 .and. npatch > 2) then
   IFATERR=IFATERR+1
 endif
 
+if (itrunclite .lt. 0 .or. itrunclite .gt. 1) THEN
+   print*,'FATAL - ITRUNCLITE OUT OF RANGE: MUST BE 0-1'
+   IFATERR = IFATERR + 1
+endif
+
 !********************************************************************
 ! MICROPHYSICS AND AEROSOL FLAG CHECKING SECTION
 !********************************************************************
@@ -334,6 +339,11 @@ elseif (level .eq. 3) then
   print*,'FATAL - ISEDIM OUT OF RANGE: MUST BE 0-1'
   IFATERR = IFATERR + 1
  endif
+ if (ikernela .lt. 1 .or. ikernela .gt. 2) THEN
+  print*,'FATAL - IKERNELA OUT OF RANGE: MUST BE 1-2'
+  IFATERR = IFATERR + 1
+ endif
+
  if (itrkepsilon .lt. 0 .or. itrkepsilon .gt. 1 .or. &
      itrkdust    .lt. 0 .or. itrkdust    .gt. 1 .or. &
      itrkdustifn .lt. 0 .or. itrkdustifn .gt. 1) THEN

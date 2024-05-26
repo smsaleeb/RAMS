@@ -32,7 +32,7 @@ integer :: idiffperts
 integer :: level,icloud,idriz,irain,ipris,isnow,iaggr,igraup,ihail      &
   ,irime,iplaws,iaerosol,idust,idustloft,iabcarb,isalt,iaerorad,iifn    &
   ,imbudget,isedim,itrkepsilon,itrkdust,itrkdustifn,iaerodep,icheckmic  &
-  ,iaeroprnt,iaerohist,iifn_formula,iscm,iscmx,iscmy
+  ,iaeroprnt,iaerohist,iifn_formula,iscm,iscmx,iscmy,ikernela
 
 integer, dimension(maxgrds) :: iaerolbc,ico2lbc
 real, dimension(maxgrds) :: bctau

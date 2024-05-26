@@ -274,7 +274,7 @@ do ngr=1,ngrids
          !INST analysis files since we need full precision for history restarts.
          !Set the actual precision you need in the subroutines called here like
          !(e.g. "trunc_3d_vars)
-         if(vtype=='LITE')then
+         if(vtype=='LITE' .and. itrunclite==1)then
           !Call this subroutine for 3D z,y,x variables
           if(vtab_r(nv,ngr)%idim_type==3)then
             CALL trunc_3d_vars (varn,mmzp(ngr),mmxp(ngr),mmyp(ngr),temp_var1)
@@ -418,7 +418,7 @@ do ngr=1,ngrids
          !INST analysis files since we need full precision for history restarts.
          !Set the actual precision you need in the subroutines called here like
          !(e.g. "trunc_3d_vars)
-         if(vtype=='LITE')then
+         if(vtype=='LITE' .and. itrunclite==1)then
           !Call this subroutine for 3D z,y,x variables
           if(vtab_r(nv,ngr)%idim_type==3)then
             CALL trunc_3d_vars (varn,mmzp(ngr),mmxp(ngr),mmyp(ngr),temp_var2)

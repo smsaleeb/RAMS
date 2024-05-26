@@ -10,7 +10,7 @@ character(len=strl1) :: hfilin,afilepref
 
 integer :: ipast_sfc
 !-------------------------------------------------------------------------------
-integer :: ioutput,iclobber,nlite_vars
+integer :: ioutput,iclobber,nlite_vars,itrunclite
 real    :: frqstate(maxgrds),avgtim,frqlite(maxgrds),frqmean,frqboth,frqst_keep  
 !-------------------------------------------------------------------------------
 integer, dimension(maxgrds) :: itoptflg,isstflg,ivegtflg,isoilflg  &

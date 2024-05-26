@@ -25,7 +25,7 @@ character(len=*) :: group,vr,cc
 real :: ff
 integer :: ii,nv
 integer :: inrflg
-integer, parameter ::nvgrid=37,nvstrt=77,nvindat=148,nvsound=10
+integer, parameter ::nvgrid=37,nvstrt=78,nvindat=149,nvsound=10
 integer ::  igrids(nvgrid),istart(nvstrt),iindat(nvindat),isound(nvsound)
 character(len=16) :: grids(nvgrid),start(nvstrt),indat(nvindat),sound(nvsound)
 data igrids/nvgrid*0/,istart/nvstrt*0/,iindat/nvindat*0/,isound/nvsound*0/
@@ -47,7 +47,7 @@ DATA START/  &
      ,'WT_ODA_PI','WT_ODA_RT','RODA_SFCE','RODA_SFC0','RODA_UPAE'        &
      ,'RODA_UPA0','RODA_HGT','RODA_ZFAC','ODA_SFC_TIL','ODA_SFC_TEL'     &
      ,'ODA_UPA_TIL','ODA_UPA_TEL','HFILIN','IPAST_SFC','ICLOBBER'        &
-     ,'IOUTPUT','AFILEPREF','FRQSTATE','FRQST_KEEP','FRQLITE'            &
+     ,'IOUTPUT','AFILEPREF','FRQSTATE','FRQST_KEEP','FRQLITE','ITRUNCLITE'&
      ,'NLITE_VARS','LITE_VARS','AVGTIM','FRQMEAN','FRQBOTH','TOPFILES'   &
      ,'SFCFILES','SSTFPFX','NDVIFPFX','ITOPTFLG','ISSTFLG','IVEGTFLG'    &
      ,'ISOILFLG','NDVIFLG','IUPDNDVI','IUPDSST','ITOPTFN'                &
@@ -68,7 +68,7 @@ DATA INDAT/  &
      ,'ICVERT','ICKMAX','CZRAD','ICKCENT','CDIVMAX','CTAU','CTMAX'       &
      ,'IRCE','RCE_SZEN','RCE_SOLC','RCE_UBMN','RCE_BUBL','LEVEL','ISCM'  &
      ,'ICHECKMIC','ITRACER','ITRACHIST','IMBUDGET','IRIME','IPLAWS'      &
-     ,'ISEDIM','ICLOUD','IDRIZ','IRAIN','IPRIS','ISNOW','IAGGR'          &
+     ,'ISEDIM','IKERNELA','ICLOUD','IDRIZ','IRAIN','IPRIS','ISNOW','IAGGR'&
      ,'IGRAUP','IHAIL','CPARM','DPARM','RPARM','PPARM','SPARM','APARM'   &
      ,'GPARM','HPARM','GNU','HUCMFILE','NDTCOLL','IAEROSOL','ISALT'      &
      ,'IDUST','IDUSTLOFT','DUSTFILE','ICCNLEV','IIFN','IIFN_FORMULA'     &
@@ -203,6 +203,7 @@ IF(GROUP.EQ.'$MODEL_FILE_INFO') THEN
  IF(VR.EQ.'FRQSTATE')    CALL varsetf (VR,FRQSTATE(NV),NV,MAXGRDS,FF,0.,1.E20)
  IF(VR.EQ.'FRQST_KEEP')  CALL varsetf (VR,FRQST_KEEP,NV,1,FF,0.,1.E20)
  IF(VR.EQ.'FRQLITE')     CALL varsetf (VR,FRQLITE(NV),NV,MAXGRDS,FF,0.,1.E20)
+ IF(VR.EQ.'ITRUNCLITE')  CALL varseti (VR,ITRUNCLITE,NV,1,II,0,1)
  IF(VR.EQ.'NLITE_VARS')  CALL varseti (VR,NLITE_VARS,NV,1,II,0,MAXLITE)
  IF(VR.EQ.'LITE_VARS')   CALL varsetc (VR,LITE_VARS(NV),NV,MAXLITE,CC,1,32)
  IF(VR.EQ.'AVGTIM')      CALL varsetf (VR,AVGTIM,NV,1,FF,-1.E20,1.E20)
@@ -331,6 +332,7 @@ IF(GROUP.EQ.'$MODEL_OPTIONS') THEN
  IF(VR.EQ.'IRIME')        CALL varseti (VR,IRIME,NV,1,II,0,1)
  IF(VR.EQ.'IPLAWS')       CALL varseti (VR,IPLAWS,NV,1,II,0,2)
  IF(VR.EQ.'ISEDIM')       CALL varseti (VR,ISEDIM,NV,1,II,0,1)
+ IF(VR.EQ.'IKERNELA')     CALL varseti (VR,IKERNELA,NV,1,II,1,2)
  IF(VR.EQ.'ICLOUD')       CALL varseti (VR,ICLOUD,NV,1,II,0,5)
  IF(VR.EQ.'IDRIZ')        CALL varseti (VR,IDRIZ,NV,1,II,0,5)
  IF(VR.EQ.'IRAIN')        CALL varseti (VR,IRAIN,NV,1,II,0,5)
@@ -468,6 +470,7 @@ WRITE(6,'(100(3(A19,I5)/))')         &
  ,'ICLOBBER=',ICLOBBER               &
  ,'IOUTPUT=',IOUTPUT                 &
  ,'NLITE_VARS=',NLITE_VARS           &
+ ,'ITRUNCLITE=',ITRUNCLITE           &
  ,'IUPDNDVI=',IUPDNDVI               &
  ,'IUPDSST=',IUPDSST                 &
  ,'ICORFLG=',ICORFLG                 &
@@ -519,6 +522,7 @@ WRITE(6,'(100(3(A19,I5)/))')         &
  ,'IRIME=',IRIME                     &
  ,'IPLAWS=',IPLAWS                   &
  ,'ISEDIM=',ISEDIM                   &
+ ,'IKERNELA=',IKERNELA               &
  ,'ICLOUD=',ICLOUD                   &
  ,'IDRIZ=',IDRIZ                     &
  ,'IRAIN=',IRAIN                     &
