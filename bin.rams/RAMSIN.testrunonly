@@ -213,6 +213,10 @@
 !-----------------------------------------------------------------------
    FRQLITE  = 0.,0.,0.,       ! Frequency for "lite" files
                               !   = 0 : no lite files
+
+   ITRUNCLITE = 0,            ! Truncate precision to save space (see utils_f.f90)
+                              ! 0 = no truncation, 1 = yes truncation
+
    NLITE_VARS=0,
 
    LITE_VARS= 'GLAT','GLON','TOPT','PATCH_AREA', !Keep these always
@@ -508,6 +512,9 @@
                              !            2-New Banded Plaws for sedimentation
    ISEDIM  = 1,              ! Sedimentation: 0-RelDisp, 1-True Hybrid-Bin
  
+   IKERNELA = 1,             ! Autoconversion/Accretion Collection Kernel
+                             ! 1 - Long kernel, 2 - Hall Kernel
+
    ICLOUD  = 5,              ! Microphysics flags
    IDRIZ   = 5,              !-------------------
    IRAIN   = 5,              !  1 - diagnostic concen.
