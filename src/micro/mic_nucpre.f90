@@ -37,9 +37,7 @@ do acat=1,aerocat
        aero_rg(acat)=((0.23873/rhosol*aeromas(k,acat)/aerocon(k,acat)) &
                     **(1./3.))/aero_rg2rm(acat)
 
-       !Saleeby(2023-06-06):Do not limit minimum rg (median radius)
-       !if(aero_rg(acat) < 0.01e-6) aero_rg(acat) = 0.01e-6
-
+       !Set an upper aerosol size limit. There is no lower limit.
        if(aero_rg(acat) > 6.50e-6) aero_rg(acat) = 6.50e-6
 
        aeromas(k,acat) = ((aero_rg(acat)*aero_rg2rm(acat))**3.) &
@@ -148,10 +146,6 @@ real, dimension(m1) :: dn0,rv
        rmlar = 2.0e-08
      endif
 
-     !Convert units for setting up lognormal distribution
-     concen_nuc = concen_nuc * dn0(k) !Convert #/kg to #/m3
-     aeromass   = aeromass   * dn0(k) !Convert kg/kg to kg/m3
-
      !Set up binned distribution concentration (#/m3)
      power = alog10(rmsma/rmlar) / float(itbin-1)
      do ic=1,itbin
@@ -174,9 +168,9 @@ real, dimension(m1) :: dn0,rv
       endif
      enddo
 101  continue
-     totifnn(k,acat) = ccncon(in_thresh) / dn0(k) !store in #/kg
-     totifnm(k,acat) = ccnmas(in_thresh) / dn0(k) !store in kg/kg
-     total_in(k) = total_in(k) + ccncon(in_thresh) / dn0(k) !store #/kg
+     totifnn(k,acat) = ccncon(in_thresh)
+     totifnm(k,acat) = ccnmas(in_thresh)
+     total_in(k) = total_in(k) + ccncon(in_thresh)
     endif !if concen_nuc > 0
 
    endif !if aerosol species turned on

@@ -130,7 +130,7 @@ integer :: iconv,icongr,icicent,icjcent,icvert,ickmax,ickcent
 real :: cxrad,cyrad,czrad,cdivmax,ctau,ctmax
 
 !******Variables Needed for CCN nucleation and restore *********************
-integer :: iccnlev,ic,rgb
+integer :: iccnlev,ic
 real :: cin_max,ccn1_max,ccn2_max,ccn3_max,dust1_max,dust2_max,saltf_max,saltj_max &
  ,salts_max,enxferratio,rxferratio,ccnmass,ccnnum,rxtemp,cxtemp,fracmass &
  ,cxloss,concen_nuc,aeromass,rg,rhosol,cldrat,epsil,ant,rcm,rmlar,rmsma &
@@ -154,13 +154,15 @@ real, dimension(maxeps) :: epsfrac
 data epsfrac / 0.05,0.1,0.2,0.4,0.6,0.8,1.0 /
 
 !Median radii (meters) for CCN
-integer, parameter :: maxrg=22
+integer, parameter :: maxrg=9
 real, dimension(maxrg) :: rg_ccn
-data rg_ccn / 0.001e-6,0.005e-6,0.01e-6,0.02e-6,0.04e-6,0.08e-6 &
-             ,0.16e-6,0.32e-6,0.48e-6,0.64e-6 &
-             ,0.96e-6,1.50e-6,2.00e-6,2.50e-6 &
-             ,3.00e-6,3.50e-6,4.00e-6,4.50e-6 &
-             ,5.00e-6,5.50e-6,6.00e-6,6.50e-6 /
+data rg_ccn / 0.001e-6, 0.005e-6, 0.010e-6, 0.020e-6, 0.040e-6 &
+             ,0.080e-6 ,0.160e-6, 0.480e-6, 0.960e-6 /
+
+!Number of current cloud droplets for nucleation fraction (#/mg)
+integer, parameter :: maxnumdrop=10
+real, dimension(maxnumdrop) :: numdrop
+data numdrop /0.,50.,100.,250.,500.,1000.,1500.,2000.,3000.,4000./
 
 !Number of aerosol species being used & Ice nuclei arrays
 !Make sure you change both if you alter number of species
