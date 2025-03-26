@@ -804,12 +804,14 @@ ENDDO
 
 ! Check that diffusion flags are compatible if using ihorgrad=1
 
-if(ihorgrad.eq.2)then
+DO NGR=1,NGRIDS
+ if(ihorgrad.eq.2)then
   if(IDIFFK(NGR) >= 3)then
     print*,' FATAL - Cant use IHORGRAD=2 if IDIFFK >= 3'
     IFATERR=IFATERR+1
   endif
-endif
+ endif
+ENDDO
 
 ! Check that diffusion of perturbations relative to varfile
 ! state only runs if varfiles are used for nudging.
