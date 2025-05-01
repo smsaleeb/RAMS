@@ -191,7 +191,7 @@ integer, dimension(aerocat) :: iaero_chem,aero_vanthoff
 !values for condition statements involving aerosols
 real, parameter :: mincon=1.0e-1         &  
                   ,minmas=1.0e-21        &
-                  ,maxaero=20000.e6      &
+                  ,maxaero=30000.e6      &
                   ,minmashydro=1.0e-27   &
                   ,minifn=1.0e-14
 
