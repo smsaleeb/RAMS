@@ -602,31 +602,37 @@ endif
 !is not changed by microphysics when used.
 
 !Copyback AEROSOLS
-if (iaerosol > 0) then
+if (iaerosol >= 1) then
    CALL ae1kmic (2,m1-1,micro%cn1np(1,i,j),aerocon(1,1))
    CALL ae1kmic (2,m1-1,micro%cn1mp(1,i,j),aeromas(1,1))
+endif
+if (iaerosol >= 2) then
    CALL ae1kmic (2,m1-1,micro%cn2np(1,i,j),aerocon(1,2))
    CALL ae1kmic (2,m1-1,micro%cn2mp(1,i,j),aeromas(1,2))
 endif
+if (iaerosol >= 3) then
+   CALL ae1kmic (2,m1-1,micro%cn3np(1,i,j),aerocon(1,3))
+   CALL ae1kmic (2,m1-1,micro%cn3mp(1,i,j),aeromas(1,3))
+endif
 if (idust > 0) then
-   CALL ae1kmic (2,m1-1,micro%md1np(1,i,j),aerocon(1,3))
-   CALL ae1kmic (2,m1-1,micro%md1mp(1,i,j),aeromas(1,3))
-   CALL ae1kmic (2,m1-1,micro%md2np(1,i,j),aerocon(1,4))
-   CALL ae1kmic (2,m1-1,micro%md2mp(1,i,j),aeromas(1,4))
+   CALL ae1kmic (2,m1-1,micro%md1np(1,i,j),aerocon(1,4))
+   CALL ae1kmic (2,m1-1,micro%md1mp(1,i,j),aeromas(1,4))
+   CALL ae1kmic (2,m1-1,micro%md2np(1,i,j),aerocon(1,5))
+   CALL ae1kmic (2,m1-1,micro%md2mp(1,i,j),aeromas(1,5))
 endif
 if (isalt > 0) then
-   CALL ae1kmic (2,m1-1,micro%salt_film_np(1,i,j),aerocon(1,5))
-   CALL ae1kmic (2,m1-1,micro%salt_film_mp(1,i,j),aeromas(1,5))
-   CALL ae1kmic (2,m1-1,micro%salt_jet_np(1,i,j) ,aerocon(1,6))
-   CALL ae1kmic (2,m1-1,micro%salt_jet_mp(1,i,j) ,aeromas(1,6))
-   CALL ae1kmic (2,m1-1,micro%salt_spum_np(1,i,j),aerocon(1,7))
-   CALL ae1kmic (2,m1-1,micro%salt_spum_mp(1,i,j),aeromas(1,7))
+   CALL ae1kmic (2,m1-1,micro%salt_film_np(1,i,j),aerocon(1,6))
+   CALL ae1kmic (2,m1-1,micro%salt_film_mp(1,i,j),aeromas(1,6))
+   CALL ae1kmic (2,m1-1,micro%salt_jet_np(1,i,j) ,aerocon(1,7))
+   CALL ae1kmic (2,m1-1,micro%salt_jet_mp(1,i,j) ,aeromas(1,7))
+   CALL ae1kmic (2,m1-1,micro%salt_spum_np(1,i,j),aerocon(1,8))
+   CALL ae1kmic (2,m1-1,micro%salt_spum_mp(1,i,j),aeromas(1,8))
 endif
 if (iabcarb > 0) then
-   CALL ae1kmic (2,m1-1,micro%abc1np(1,i,j),aerocon(1,8))
-   CALL ae1kmic (2,m1-1,micro%abc1mp(1,i,j),aeromas(1,8))
-   CALL ae1kmic (2,m1-1,micro%abc2np(1,i,j),aerocon(1,9))
-   CALL ae1kmic (2,m1-1,micro%abc2mp(1,i,j),aeromas(1,9))
+   CALL ae1kmic (2,m1-1,micro%abc1np(1,i,j),aerocon(1,9))
+   CALL ae1kmic (2,m1-1,micro%abc1mp(1,i,j),aeromas(1,9))
+   CALL ae1kmic (2,m1-1,micro%abc2np(1,i,j),aerocon(1,10))
+   CALL ae1kmic (2,m1-1,micro%abc2mp(1,i,j),aeromas(1,10))
 endif
 
 !Copyback AEROSOL TRACKING VARIABLES

@@ -159,31 +159,37 @@ do k = 2,m1-1
   if (jnmb(3)>=5 .and. (iifn==1.or.iifn==2)) then
     cifnx(k) = micro%cifnp(k,i,j)
   endif
-  if (iaerosol > 0) then
+  if (iaerosol >= 1) then
     aerocon(k,1)   = micro%cn1np(k,i,j)
     aeromas(k,1)   = micro%cn1mp(k,i,j)
+  endif
+  if (iaerosol >= 2) then
     aerocon(k,2)   = micro%cn2np(k,i,j)
     aeromas(k,2)   = micro%cn2mp(k,i,j)
   endif
+  if (iaerosol >= 3) then
+    aerocon(k,3)   = micro%cn3np(k,i,j)
+    aeromas(k,3)   = micro%cn3mp(k,i,j)
+  endif
   if (idust > 0) then
-    aerocon(k,3) = micro%md1np(k,i,j)
-    aeromas(k,3) = micro%md1mp(k,i,j)
-    aerocon(k,4) = micro%md2np(k,i,j)
-    aeromas(k,4) = micro%md2mp(k,i,j)
+    aerocon(k,4) = micro%md1np(k,i,j)
+    aeromas(k,4) = micro%md1mp(k,i,j)
+    aerocon(k,5) = micro%md2np(k,i,j)
+    aeromas(k,5) = micro%md2mp(k,i,j)
   endif
   if (isalt > 0) then
-    aerocon(k,5) = micro%salt_film_np(k,i,j)
-    aeromas(k,5) = micro%salt_film_mp(k,i,j)
-    aerocon(k,6) = micro%salt_jet_np(k,i,j)
-    aeromas(k,6) = micro%salt_jet_mp(k,i,j)
-    aerocon(k,7) = micro%salt_spum_np(k,i,j)
-    aeromas(k,7) = micro%salt_spum_mp(k,i,j)
+    aerocon(k,6) = micro%salt_film_np(k,i,j)
+    aeromas(k,6) = micro%salt_film_mp(k,i,j)
+    aerocon(k,7) = micro%salt_jet_np(k,i,j)
+    aeromas(k,7) = micro%salt_jet_mp(k,i,j)
+    aerocon(k,8) = micro%salt_spum_np(k,i,j)
+    aeromas(k,8) = micro%salt_spum_mp(k,i,j)
   endif
   if (iabcarb > 0) then
-    aerocon(k,8) = micro%abc1np(k,i,j)
-    aeromas(k,8) = micro%abc1mp(k,i,j)
-    aerocon(k,9) = micro%abc2np(k,i,j)
-    aeromas(k,9) = micro%abc2mp(k,i,j)
+    aerocon(k,9) = micro%abc1np(k,i,j)
+    aeromas(k,9) = micro%abc1mp(k,i,j)
+    aerocon(k,10)= micro%abc2np(k,i,j)
+    aeromas(k,10)= micro%abc2mp(k,i,j)
   endif
 enddo
 

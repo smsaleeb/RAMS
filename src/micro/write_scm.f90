@@ -144,11 +144,17 @@ if(iswrtyp == 3 .or. ilwrtyp == 3) then
  CALL iofil ('aodt.txt'   ,radiate_g(ng)%aodt   (i,j),1,wf,fln)
 endif
 
-if(iaerosol > 0) then
+if(iaerosol >= 1) then
  CALL iofil ('cn1np.txt',micro_g(ng)%cn1np(:,i,j),m1,wf,fln)
  CALL iofil ('cn1mp.txt',micro_g(ng)%cn1mp(:,i,j),m1,wf,fln)
+endif
+if(iaerosol >= 2) then
  CALL iofil ('cn2np.txt',micro_g(ng)%cn2np(:,i,j),m1,wf,fln)
  CALL iofil ('cn2mp.txt',micro_g(ng)%cn2mp(:,i,j),m1,wf,fln)
+endif
+if(iaerosol >= 3) then
+ CALL iofil ('cn3np.txt',micro_g(ng)%cn3np(:,i,j),m1,wf,fln)
+ CALL iofil ('cn3mp.txt',micro_g(ng)%cn3mp(:,i,j),m1,wf,fln)
 endif
 
 if(idust > 0) then

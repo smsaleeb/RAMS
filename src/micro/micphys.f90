@@ -32,7 +32,7 @@ integer :: idiffperts
 integer :: level,icloud,idriz,irain,ipris,isnow,iaggr,igraup,ihail      &
   ,irime,iplaws,iaerosol,idust,idustloft,iabcarb,isalt,iaerorad,iifn    &
   ,imbudget,isedim,itrkepsilon,itrkdust,itrkdustifn,iaerodep,icheckmic  &
-  ,iaeroprnt,iaerohist,iifn_formula,iscm,iscmx,iscmy
+  ,iaeroprnt,iaerohist,iifn_formula,iscm,iscmx,iscmy,ikernela
 
 integer, dimension(maxgrds) :: iaerolbc,ico2lbc
 real, dimension(maxgrds) :: bctau
@@ -130,8 +130,8 @@ integer :: iconv,icongr,icicent,icjcent,icvert,ickmax,ickcent
 real :: cxrad,cyrad,czrad,cdivmax,ctau,ctmax
 
 !******Variables Needed for CCN nucleation and restore *********************
-integer :: iccnlev,ic,rgb
-real :: cin_max,ccn1_max,ccn2_max,dust1_max,dust2_max,saltf_max,saltj_max &
+integer :: iccnlev,ic
+real :: cin_max,ccn1_max,ccn2_max,ccn3_max,dust1_max,dust2_max,saltf_max,saltj_max &
  ,salts_max,enxferratio,rxferratio,ccnmass,ccnnum,rxtemp,cxtemp,fracmass &
  ,cxloss,concen_nuc,aeromass,rg,rhosol,cldrat,epsil,ant,rcm,rmlar,rmsma &
  ,power,scnmass,dcnmass,dinmass,abc1_max,abc2_max
@@ -154,13 +154,15 @@ real, dimension(maxeps) :: epsfrac
 data epsfrac / 0.05,0.1,0.2,0.4,0.6,0.8,1.0 /
 
 !Median radii (meters) for CCN
-integer, parameter :: maxrg=20
+integer, parameter :: maxrg=9
 real, dimension(maxrg) :: rg_ccn
-data rg_ccn / 0.01e-6,0.02e-6,0.04e-6,0.08e-6 &
-             ,0.16e-6,0.32e-6,0.48e-6,0.64e-6 &
-             ,0.96e-6,1.50e-6,2.00e-6,2.50e-6 &
-             ,3.00e-6,3.50e-6,4.00e-6,4.50e-6 &
-             ,5.00e-6,5.50e-6,6.00e-6,6.50e-6 /
+data rg_ccn / 0.001e-6, 0.005e-6, 0.010e-6, 0.020e-6, 0.040e-6 &
+             ,0.080e-6 ,0.160e-6, 0.480e-6, 0.960e-6 /
+
+!Number of current cloud droplets for nucleation fraction (#/mg)
+integer, parameter :: maxnumdrop=10
+real, dimension(maxnumdrop) :: numdrop
+data numdrop /0.,50.,100.,250.,500.,1000.,1500.,2000.,3000.,4000./
 
 !Number of aerosol species being used & Ice nuclei arrays
 !Make sure you change both if you alter number of species
@@ -168,15 +170,16 @@ data rg_ccn / 0.01e-6,0.02e-6,0.04e-6,0.08e-6 &
 !Ammonium sulfate (NH4-2SO4) or Sodium chloride (NaCl)
 ! 1 = CCN mode 1
 ! 2 = CCN mode 2
-! 3 = Small mode mineral dust (soluble coating)
-! 4 = Large mode mineral dust (soluble coating)
-! 5 = Film mode sea salt
-! 6 = Jet mode sea salt
-! 7 = Spume mode sea salt
-! 8 = Sub-micron radius regenerated mixed aerosols
-! 9 = Super-micron radius regenerated mixed aerosols
+! 3 = CCN mode 3
+! 4 = Small mode mineral dust (soluble coating)
+! 5 = Large mode mineral dust (soluble coating)
+! 6 = Film mode sea salt
+! 7 = Jet mode sea salt
+! 8 = Spume mode sea salt
+! 9 = Sub-micron radius regenerated mixed aerosols
+! 10= Super-micron radius regenerated mixed aerosols
 integer :: acat
-integer, parameter :: aerocat=11
+integer, parameter :: aerocat=12
 real, dimension(nzpmax) :: cifnx
 real, dimension(nzpmax,2) :: regenmas
 real, dimension(nzpmax,aerocat) :: totifnn,totifnm,aerocon,aeromas
@@ -188,7 +191,7 @@ integer, dimension(aerocat) :: iaero_chem,aero_vanthoff
 !values for condition statements involving aerosols
 real, parameter :: mincon=1.0e-1         &  
                   ,minmas=1.0e-21        &
-                  ,maxaero=20000.e6      &
+                  ,maxaero=30000.e6      &
                   ,minmashydro=1.0e-27   &
                   ,minifn=1.0e-14
 
@@ -199,6 +202,7 @@ real, parameter :: mincon=1.0e-1         &
 !specifically set for sigma=1.8. These would need to be updated as well.
 data aero_sigma  / 1.80 &       !CCN mode 1 
                   ,1.80 &       !CCN mode 2
+                  ,1.80 &       !CCN mode 3
                   ,1.80 &       !small mineral dust
                   ,1.80 &       !large mineral dust
                   ,1.80 &       !salt film mode 
@@ -213,6 +217,7 @@ data aero_sigma  / 1.80 &       !CCN mode 1
 !exp(1.5 * (alog(sigma))**2)
 data aero_rg2rm  / 1.6791 &     !CCN mode 1
                   ,1.6791 &     !CCN mode 2
+                  ,1.6791 &     !CCN mode 3
                   ,1.6791 &     !small mineral dust
                   ,1.6791 &     !large mineral dust
                   ,1.6791 &     !salt film mode 
