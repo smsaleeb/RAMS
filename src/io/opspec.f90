@@ -456,7 +456,7 @@ elseif (level .eq. 4) then
     print*,'CCN and INP are specified in CCN_MAX and CIN_MAX for HUCM.'
     IFATERR = IFATERR + 1
    endif
-   if (imbudget==3)then
+   if(imbudget==3)then
     print*,'FATAL - No dust nucleation tracking because there is'
     print*,'no dust in HUCM-SBM. Set IMBUDGET < 3.'
     IFATERR = IFATERR + 1

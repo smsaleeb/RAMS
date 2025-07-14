@@ -18,7 +18,7 @@ integer, parameter :: nthz=26,nrhhz=10,ngam=5000,ninc=201   &
                      ,ncat=8,nhcat=16,npairc=101,npairr=147 &
                      ,nembc=20
 real, parameter    :: dtc=1.,ddnc=2.e-6 ,dthz=1.,drhhz=.02
-real, parameter    :: budget_scalet=1.
+real, parameter    :: budget_scalet=1.,budget_scalent=1.e-3
 real, parameter    :: rxmin=1.e-16,cxmin=1.e-5
 
 !IDIFFPERTS
@@ -103,20 +103,39 @@ real, dimension(ndccr,nrrcr,ndrcr,4) :: r1tabci,c1tabci,r2tabci,c2tabci &
 
 !******Variables Needed for COMPUTING BUDGETS ******************************
 !For imbudget>=1
-real, dimension(nzpmax) :: xlatheatvap,xlatheatfrz,xnuccldrt,xcld2raint &
-,xice2raint,xnucicert,xvapliqt,xvapicet,xevapliqt,xevapicet &
-,xmelticet,xrimecldt,xaggregatet,xfreezingt,xmeltingt &
-,xrain2icet,xlatheatvapt,xlatheatfrzt
+real, dimension(nzpmax) :: xlatheatvap,xlatheatfrz,xlatheatvapt,xlatheatfrzt &
+,xnuccldrt,xnuccldct,xnucicert,xnucicect                                  &
+,xvapliqt,xvapicet,xevapliqt,xevapicet                                    &
+,xmelt2liqthermt,xmelt2raincolt,xmeltvapt,xmeltcolmeltt                   &
+,xfreezvapt,xfreezcolmeltt,xfreezicenuct                                  &
+,xcld2raint,xcld2drizt,xdrz2raint                                         &
+,xrimecldt,xrimedrzt,xrimeraint                                           &
+,xaggrselfprist,xaggrselfsnowt,xaggrpsprist,xaggrpssnowt                  &
+,xrainbreakupt,xcldsiphmt,xdrzsiphmt,xrainshedt                           &
+,xcld2raint_tmp,xcld2drizt_tmp,xdrz2raint_tmp                             &
+,xcldsiphmt_tmp,xdrzsiphmt_tmp                                            &
+,xrimecldt_tmp,xrimedrzt_tmp                                              &
+,xaggrselfprist_tmp,xaggrselfsnowt_tmp,xaggrpsprist_tmp,xaggrpssnowt_tmp  &
+,xrimeraint_tmp
 
 !For imbudget>=2
-real, dimension(nzpmax) :: xinuchomrt,xinuccontrt,xinucifnrt,xinuchazrt   &
-,xvapcldt,xvapraint,xvapprist,xvapsnowt,xvapaggrt,xvapgraut,xvaphailt     &
-,xvapdrizt,xevapcldt,xevapraint,xevapprist,xevapsnowt,xevapaggrt          &
-,xevapgraut,xevaphailt,xevapdrizt                                         &
-,xmeltprist,xmeltsnowt,xmeltaggrt,xmeltgraut,xmelthailt                   &
-,xrimecldsnowt,xrimecldaggrt,xrimecldgraut,xrimecldhailt,xrain2prt        &
-,xrain2snt,xrain2agt,xrain2grt,xrain2hat,xaggrselfprist                   &
-,xaggrselfsnowt,xaggrprissnowt
+real, dimension(nzpmax) :: xinuchomrt,xinuccontrt,xinucifnrt,xinuchazrt     &
+,xinuchomct,xinuccontct,xinucifnct,xinuchazct                               &
+,xvapcldt,xvapraint,xvapprist,xvapsnowt                                     &
+,xvapaggrt,xvapgraut,xvaphailt,xvapdrizt                                    &
+,xevapcldt,xevapraint,xevapprist,xevapsnowt                                 &
+,xevapaggrt,xevapgraut,xevaphailt,xevapdrizt                                &
+,xmeltpristhmt,xmeltsnowthmt,xmeltaggrthmt,xmeltgrauthmt,xmelthailthmt      &
+,xmeltpriscolt,xmeltsnowcolt,xmeltaggrcolt,xmeltgraucolt,xmelthailcolt      &
+,xrimecldsnowt,xrimecldaggrt,xrimecldgraut,xrimecldhailt                    &
+,xrimedrzsnowt,xrimedrzaggrt,xrimedrzgraut,xrimedrzhailt                    &
+,xrimerainprist,xrimerainsnowt,xrimerainaggrt,xrimeraingraut,xrimerainhailt &
+,xmeltpriscolt_tmp,xmeltsnowcolt_tmp,xmeltaggrcolt_tmp                      &
+,xmeltgraucolt_tmp,xmelthailcolt_tmp                                        &
+,xrimecldsnowt_tmp,xrimecldaggrt_tmp,xrimecldgraut_tmp,xrimecldhailt_tmp    &
+,xrimedrzsnowt_tmp,xrimedrzaggrt_tmp,xrimedrzgraut_tmp,xrimedrzhailt_tmp    &
+,xrimerainprist_tmp,xrimerainsnowt_tmp,xrimerainaggrt_tmp                   &
+,xrimeraingraut_tmp,xrimerainhailt_tmp
 
 !For imbudget>=3
 real, dimension(nzpmax) :: xdust1cldrt,xdust2cldrt,xdust1drzrt,xdust2drzrt

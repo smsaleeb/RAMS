@@ -6,12 +6,12 @@ implicit none
 character(len=32) :: varn
 integer :: nzp,nxp,nyp
 real :: a(nxp,nyp,nzp)
-real :: t_mbud1,t_mbud2,t_mixr,t_numc,t_aeroc,t_pcpr
+real :: t_mbudr,t_mbudc,t_mixr,t_numc,t_aeroc,t_pcpr
 
 !Common rounding thresholds for reducing precision and 
 !enabling better data compression in LITE files
-t_mbud1 = 1e8 ! kg/kg/timefreq
-t_mbud2 = 1e9 ! kg/kg/timefreq
+t_mbudr = 1e9 ! kg/kg/timefreq
+t_mbudc = 1e6 ! #/g/timefreq
 t_mixr  = 1e6 ! kg/kg
 t_numc  = 1e2 ! #/kg
 t_aeroc = 1e2 ! #/kg
@@ -35,6 +35,7 @@ elseif(trim(varn)=='PCPVH')then
 a = anint(a*t_pcpr)/t_pcpr
 elseif(trim(varn)=='PCPVD')then
 a = anint(a*t_pcpr)/t_pcpr
+!
 !Dynamic and general thermodynamic variables
 elseif(trim(varn)=='THETA')then
 a = anint(a*1e3)/1e3
@@ -52,6 +53,7 @@ elseif(trim(varn)=='PI')then
 a = anint(a*1e3)/1e3
 elseif(trim(varn)=='DN0')then
 a = anint(a*1e3)/1e3
+!
 !Vapor and hydrometeor mixing ratio variables (kg/kg)
 elseif(trim(varn)=='RTP')then
 a = anint(a*t_mixr)/t_mixr
@@ -73,6 +75,7 @@ elseif(trim(varn)=='RHP')then
 a = anint(a*t_mixr)/t_mixr
 elseif(trim(varn)=='RDP')then
 a = anint(a*t_mixr)/t_mixr
+!
 !Hydrometeor number concentrations (#/kg)
 elseif(trim(varn)=='CCP')then
 a = anint(a*t_numc)/t_numc
@@ -90,6 +93,7 @@ elseif(trim(varn)=='CHP')then
 a = anint(a*t_numc)/t_numc
 elseif(trim(varn)=='CDP')then
 a = anint(a*t_numc)/t_numc
+!
 !Radiation variables
 elseif(trim(varn)=='FTHRD')then
 a = anint(a*1e5)/1e5
@@ -103,6 +107,7 @@ elseif(trim(varn)=='LWDN')then
 a = anint(a*1e3)/1e3
 elseif(trim(varn)=='BEXT')then
 a = anint(a*1e4)/1e4
+!
 !Aerosol number concentrations
 elseif(trim(varn)=='CN1NP')then
 a = anint(a*t_aeroc)/t_aeroc
@@ -128,35 +133,67 @@ elseif(trim(varn)=='REGEN_AERO1_NP')then
 a = anint(a*t_aeroc)/t_aeroc
 elseif(trim(varn)=='REGEN_AERO2_NP')then
 a = anint(a*t_aeroc)/t_aeroc
+!
 !Level-1 mass process rates
 elseif(trim(varn)=='NUCCLDRT')then
-a = anint(a*t_mbud1)/t_mbud1
-elseif(trim(varn)=='CLD2RAINT')then
-a = anint(a*t_mbud1)/t_mbud1
-elseif(trim(varn)=='ICE2RAINT')then
-a = anint(a*t_mbud1)/t_mbud1
+a = anint(a*t_mbudr)/t_mbudr
+elseif(trim(varn)=='NUCCLDCT')then
+a = anint(a*t_mbudc)/t_mbudc
 elseif(trim(varn)=='NUCICERT')then
-a = anint(a*t_mbud1)/t_mbud1
+a = anint(a*t_mbudr)/t_mbudr
+elseif(trim(varn)=='NUCICECT')then
+a = anint(a*t_mbudc)/t_mbudc
 elseif(trim(varn)=='VAPLIQT')then
-a = anint(a*t_mbud1)/t_mbud1
+a = anint(a*t_mbudr)/t_mbudr
 elseif(trim(varn)=='VAPICET')then
-a = anint(a*t_mbud1)/t_mbud1
+a = anint(a*t_mbudr)/t_mbudr
 elseif(trim(varn)=='EVAPLIQT')then
-a = anint(a*t_mbud1)/t_mbud1
+a = anint(a*t_mbudr)/t_mbudr
 elseif(trim(varn)=='EVAPICET')then
-a = anint(a*t_mbud1)/t_mbud1
-elseif(trim(varn)=='FREEZINGT')then
-a = anint(a*t_mbud1)/t_mbud1
-elseif(trim(varn)=='MELTINGT')then
-a = anint(a*t_mbud1)/t_mbud1
-elseif(trim(varn)=='MELTICET')then
-a = anint(a*t_mbud1)/t_mbud1
+a = anint(a*t_mbudr)/t_mbudr
+elseif(trim(varn)=='MELT2LIQTHERMT')then
+a = anint(a*t_mbudr)/t_mbudr
+elseif(trim(varn)=='MELT2RAINCOLT')then
+a = anint(a*t_mbudr)/t_mbudr
+elseif(trim(varn)=='MELTVAPT')then
+a = anint(a*t_mbudr)/t_mbudr
+elseif(trim(varn)=='MELTCOLMELTT')then
+a = anint(a*t_mbudr)/t_mbudr
+elseif(trim(varn)=='FREEZVAPT')then
+a = anint(a*t_mbudr)/t_mbudr
+elseif(trim(varn)=='FREEZCOLMELTT')then
+a = anint(a*t_mbudr)/t_mbudr
+elseif(trim(varn)=='FREEZICENUCT')then
+a = anint(a*t_mbudr)/t_mbudr
+elseif(trim(varn)=='CLD2RAINT')then
+a = anint(a*t_mbudr)/t_mbudr
+elseif(trim(varn)=='CLD2DRIZT')then
+a = anint(a*t_mbudr)/t_mbudr
+elseif(trim(varn)=='DRZ2RAINT')then
+a = anint(a*t_mbudr)/t_mbudr
 elseif(trim(varn)=='RIMECLDT')then
-a = anint(a*t_mbud1)/t_mbud1
-elseif(trim(varn)=='RAIN2ICET')then
-a = anint(a*t_mbud1)/t_mbud1
-elseif(trim(varn)=='AGGREGATET')then
-a = anint(a*t_mbud1)/t_mbud1
+a = anint(a*t_mbudr)/t_mbudr
+elseif(trim(varn)=='RIMEDRZT')then
+a = anint(a*t_mbudr)/t_mbudr
+elseif(trim(varn)=='RIMERAINT')then
+a = anint(a*t_mbudr)/t_mbudr
+elseif(trim(varn)=='AGGRSELFPRIST')then
+a = anint(a*t_mbudr)/t_mbudr
+elseif(trim(varn)=='AGGRSELFSNOWT')then
+a = anint(a*t_mbudr)/t_mbudr
+elseif(trim(varn)=='AGGRPSPRIST')then
+a = anint(a*t_mbudr)/t_mbudr
+elseif(trim(varn)=='AGGRPSSNOWT')then
+a = anint(a*t_mbudr)/t_mbudr
+elseif(trim(varn)=='RAINBREAKUPT')then
+a = anint(a*t_mbudc)/t_mbudc
+elseif(trim(varn)=='CLDSIPHMT')then
+a = anint(a*t_mbudc)/t_mbudc
+elseif(trim(varn)=='DRZSIPHMT')then
+a = anint(a*t_mbudc)/t_mbudc
+elseif(trim(varn)=='RAINSHEDT')then
+a = anint(a*t_mbudc)/t_mbudc
+!
 !WP & Temperature process rates
 elseif(trim(varn)=='LATHEATVAPT')then
 a = anint(a*1e5)/1e5
@@ -172,81 +209,102 @@ elseif(trim(varn)=='WP_BUOY_COND')then
 a = anint(a*1e4)/1e4
 elseif(trim(varn)=='WP_ADVDIF')then
 a = anint(a*1e4)/1e4
+!
 !Level-2 mass process rates
 elseif(trim(varn)=='INUCHOMRT')then
-a = anint(a*t_mbud2)/t_mbud2
+a = anint(a*t_mbudr)/t_mbudr
+elseif(trim(varn)=='INUCHOMCT')then
+a = anint(a*t_mbudc)/t_mbudc
 elseif(trim(varn)=='INUCCONTRT')then
-a = anint(a*t_mbud2)/t_mbud2
+a = anint(a*t_mbudr)/t_mbudr
+elseif(trim(varn)=='INUCCONTCT')then
+a = anint(a*t_mbudc)/t_mbudc
 elseif(trim(varn)=='INUCIFNRT')then
-a = anint(a*t_mbud2)/t_mbud2
+a = anint(a*t_mbudr)/t_mbudr
+elseif(trim(varn)=='INUCIFNCT')then
+a = anint(a*t_mbudc)/t_mbudc
 elseif(trim(varn)=='INUCHAZRT')then
-a = anint(a*t_mbud2)/t_mbud2
+a = anint(a*t_mbudr)/t_mbudr
+elseif(trim(varn)=='INUCHAZCT')then
+a = anint(a*t_mbudc)/t_mbudc
 elseif(trim(varn)=='VAPCLDT')then
-a = anint(a*t_mbud2)/t_mbud2
+a = anint(a*t_mbudr)/t_mbudr
 elseif(trim(varn)=='VAPRAINT')then
-a = anint(a*t_mbud2)/t_mbud2
+a = anint(a*t_mbudr)/t_mbudr
 elseif(trim(varn)=='VAPPRIST')then
-a = anint(a*t_mbud2)/t_mbud2
+a = anint(a*t_mbudr)/t_mbudr
 elseif(trim(varn)=='VAPSNOWT')then
-a = anint(a*t_mbud2)/t_mbud2
+a = anint(a*t_mbudr)/t_mbudr
 elseif(trim(varn)=='VAPAGGRT')then
-a = anint(a*t_mbud2)/t_mbud2
+a = anint(a*t_mbudr)/t_mbudr
 elseif(trim(varn)=='VAPGRAUT')then
-a = anint(a*t_mbud2)/t_mbud2
+a = anint(a*t_mbudr)/t_mbudr
 elseif(trim(varn)=='VAPHAILT')then
-a = anint(a*t_mbud2)/t_mbud2
+a = anint(a*t_mbudr)/t_mbudr
 elseif(trim(varn)=='VAPDRIZT')then
-a = anint(a*t_mbud2)/t_mbud2
+a = anint(a*t_mbudr)/t_mbudr
 elseif(trim(varn)=='EVAPCLDT')then
-a = anint(a*t_mbud2)/t_mbud2
+a = anint(a*t_mbudr)/t_mbudr
 elseif(trim(varn)=='EVAPRAINT')then
-a = anint(a*t_mbud2)/t_mbud2
+a = anint(a*t_mbudr)/t_mbudr
 elseif(trim(varn)=='EVAPPRIST')then
-a = anint(a*t_mbud2)/t_mbud2
+a = anint(a*t_mbudr)/t_mbudr
 elseif(trim(varn)=='EVAPSNOWT')then
-a = anint(a*t_mbud2)/t_mbud2
+a = anint(a*t_mbudr)/t_mbudr
 elseif(trim(varn)=='EVAPAGGRT')then
-a = anint(a*t_mbud2)/t_mbud2
+a = anint(a*t_mbudr)/t_mbudr
 elseif(trim(varn)=='EVAPGRAUT')then
-a = anint(a*t_mbud2)/t_mbud2
+a = anint(a*t_mbudr)/t_mbudr
 elseif(trim(varn)=='EVAPHAILT')then
-a = anint(a*t_mbud2)/t_mbud2
-elseif(trim(varn)=='EVAPDRIST')then
-a = anint(a*t_mbud2)/t_mbud2
-elseif(trim(varn)=='MELTPRIST')then
-a = anint(a*t_mbud2)/t_mbud2
-elseif(trim(varn)=='MELTSNOWT')then
-a = anint(a*t_mbud2)/t_mbud2
-elseif(trim(varn)=='MELTAGGRT')then
-a = anint(a*t_mbud2)/t_mbud2
-elseif(trim(varn)=='MELTGRAUT')then
-a = anint(a*t_mbud2)/t_mbud2
-elseif(trim(varn)=='MELTHAILT')then
-a = anint(a*t_mbud2)/t_mbud2
+a = anint(a*t_mbudr)/t_mbudr
+elseif(trim(varn)=='EVAPDRIZT')then
+a = anint(a*t_mbudr)/t_mbudr
+elseif(trim(varn)=='MELTPRISTHMT')then
+a = anint(a*t_mbudr)/t_mbudr
+elseif(trim(varn)=='MELTSNOWTHMT')then
+a = anint(a*t_mbudr)/t_mbudr
+elseif(trim(varn)=='MELTAGGRTHMT')then
+a = anint(a*t_mbudr)/t_mbudr
+elseif(trim(varn)=='MELTGRAUTHMT')then
+a = anint(a*t_mbudr)/t_mbudr
+elseif(trim(varn)=='MELTHAILTHMT')then
+a = anint(a*t_mbudr)/t_mbudr
+elseif(trim(varn)=='MELTPRISCOLT')then
+a = anint(a*t_mbudr)/t_mbudr
+elseif(trim(varn)=='MELTSNOWCOLT')then
+a = anint(a*t_mbudr)/t_mbudr
+elseif(trim(varn)=='MELTAGGRCOLT')then
+a = anint(a*t_mbudr)/t_mbudr
+elseif(trim(varn)=='MELTGRAUCOLT')then
+a = anint(a*t_mbudr)/t_mbudr
+elseif(trim(varn)=='MELTHAILCOLT')then
+a = anint(a*t_mbudr)/t_mbudr
 elseif(trim(varn)=='RIMECLDSNOWT')then
-a = anint(a*t_mbud2)/t_mbud2
+a = anint(a*t_mbudr)/t_mbudr
 elseif(trim(varn)=='RIMECLDAGGRT')then
-a = anint(a*t_mbud2)/t_mbud2
+a = anint(a*t_mbudr)/t_mbudr
 elseif(trim(varn)=='RIMECLDGRAUT')then
-a = anint(a*t_mbud2)/t_mbud2
+a = anint(a*t_mbudr)/t_mbudr
 elseif(trim(varn)=='RIMECLDHAILT')then
-a = anint(a*t_mbud2)/t_mbud2
-elseif(trim(varn)=='RAIN2PRT')then
-a = anint(a*t_mbud2)/t_mbud2
-elseif(trim(varn)=='RAIN2SNT')then
-a = anint(a*t_mbud2)/t_mbud2
-elseif(trim(varn)=='RAIN2AGT')then
-a = anint(a*t_mbud2)/t_mbud2
-elseif(trim(varn)=='RAIN2GRT')then
-a = anint(a*t_mbud2)/t_mbud2
-elseif(trim(varn)=='RAIN2HAT')then
-a = anint(a*t_mbud2)/t_mbud2
-elseif(trim(varn)=='AGGRSELFPRIST')then
-a = anint(a*t_mbud2)/t_mbud2
-elseif(trim(varn)=='AGGRSELFSNOWT')then
-a = anint(a*t_mbud2)/t_mbud2
-elseif(trim(varn)=='AGGRPRISSNOWT')then
-a = anint(a*t_mbud2)/t_mbud2
+a = anint(a*t_mbudr)/t_mbudr
+elseif(trim(varn)=='RIMEDRZSNOWT')then
+a = anint(a*t_mbudr)/t_mbudr
+elseif(trim(varn)=='RIMEDRZAGGRT')then
+a = anint(a*t_mbudr)/t_mbudr
+elseif(trim(varn)=='RIMEDRZGRAUT')then
+a = anint(a*t_mbudr)/t_mbudr
+elseif(trim(varn)=='RIMEDRZHAILT')then
+a = anint(a*t_mbudr)/t_mbudr
+elseif(trim(varn)=='RIMERAINPRIST')then
+a = anint(a*t_mbudr)/t_mbudr
+elseif(trim(varn)=='RIMERAINSNOWT')then
+a = anint(a*t_mbudr)/t_mbudr
+elseif(trim(varn)=='RIMERAINAGGRT')then
+a = anint(a*t_mbudr)/t_mbudr
+elseif(trim(varn)=='RIMERAINGRAUT')then
+a = anint(a*t_mbudr)/t_mbudr
+elseif(trim(varn)=='RIMERAINHAILT')then
+a = anint(a*t_mbudr)/t_mbudr
 endif
 
 return

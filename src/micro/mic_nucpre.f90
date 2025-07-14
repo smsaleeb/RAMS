@@ -295,10 +295,9 @@ real, dimension(m1) :: dn0,rv
        aero_rg(acat)=((0.23873/rhosol*aeromas(k,acat)/aerocon(k,acat)) &
              **(1./3.))/aero_rg2rm(acat)
 
-       !Saleeby(2023-06-06):Do not limit minimum rg (median radius)
-       !if(aero_rg(acat) < 0.01e-6) aero_rg(acat) = 0.01e-6
-
+       !Set an upper aerosol size limit. There is no lower limit.
        if(aero_rg(acat) > 6.50e-6) aero_rg(acat) = 6.50e-6
+
        aeromas(k,acat) = ((aero_rg(acat)*aero_rg2rm(acat))**3.) &
              *aerocon(k,acat)/(0.23873/rhosol)
       endif
@@ -309,4 +308,3 @@ real, dimension(m1) :: dn0,rv
 
 return
 END SUBROUTINE prenuc_ifn
-

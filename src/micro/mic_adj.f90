@@ -168,8 +168,8 @@ do j = 1,m3
            !If there are number to restore, compute median radius (rg)
            rg=((0.23873/aero_rhosol(aerocat)*cnmhx(k,lcat) / &
                max(1.e-10,cxloss))**(0.3333))/aero_rg2rm(aerocat)
-           if(rg < 0.01e-6) rg = 0.01e-6
-           if(rg > 6.50e-6) rg = 6.50e-6
+           if(rg < 0.001e-6) rg = 0.001e-6
+           if(rg > 6.500e-6) rg = 6.500e-6
            !Compute the number to restore
            cnmhx_num = cnmhx(k,lcat) * (0.23873/aero_rhosol(aerocat)) / &
               ((rg * aero_rg2rm(aerocat)) ** 3.)
